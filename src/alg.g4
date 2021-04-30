@@ -5,7 +5,7 @@ options{tokenVocab=algLexer;}
 start: declaration+ EOF;
 
 //Declaracoes
-declaration: variable_declation SEMI_COLON
+declaration: variable_declation (SEMI_COLON | {notifyErrorListeners("Missing ';'");})
             | function_declaration;
 
 variable_declation: (simple_declaration
@@ -24,7 +24,7 @@ type :
     | STRING
     | LESS_THAN  type  GREATER_THAN ;
 
-// Expressions must do
+// Expressions without
 expression:
             simple_expression
             | L_PAREN expression R_PAREN // Parentheses
@@ -36,6 +36,48 @@ expression:
             | expression AND expression //Binary AND
             | expression OR expression //Binary OR
             ;
+//Left recursion fixed
+//expression: expression2 expression_aux;
+//expression_aux: op1 expression2 expression_aux | ;
+//expression2: expression3 expression_aux2;
+//expression_aux2: op2 expression3 expression_aux2 | ;
+//expression3: expression4 expression_aux3;
+//expression_aux3: op3 expression4 expression_aux3 | ;
+//expression4: expression5 expression_aux4;
+//expression_aux4: op4 expression5 expression_aux4 | ;
+//expression5: expression6 expression_aux5;
+//expression_aux5: op5 expression6 expression_aux5 | ;
+//
+//expression6: expression7 expression_aux6;
+//expression_aux6: L_BRACKET expression R_BRACKET expression_aux6 | ;
+//
+//expression7:
+//             simple_expression
+//            | L_PAREN expression R_PAREN
+//            | (PLUS | MINUS | NOT | QUESTION) expression
+//            ;
+//
+//
+//op1: (LESS_THAN | GREATER_THAN | LESS_EQUAL_THAN | GREATER_EQUAL_THAN | IS_EQUAL | DIFERENT);
+//op2: (PLUS | MINUS);
+//op3: (MULT | DIV | REMAIN);
+//op4: AND;
+//op5: OR;
+
+//Left recursion fixed in a different way
+//expression:
+//            simple_expression expression_aux
+//            | L_PAREN expression R_PAREN expression_aux // Parentheses
+//            | (PLUS | MINUS | NOT | QUESTION) expression expression_aux //Unary Operator
+//            ;
+//
+//expression_aux:  L_BRACKET expression R_BRACKET expression_aux
+//                 | (MULT | DIV | REMAIN) expression expression_aux
+//                 | (PLUS | MINUS) expression expression_aux //Binary Operator Lower Priority
+//                 | (LESS_THAN | GREATER_THAN | LESS_EQUAL_THAN | GREATER_EQUAL_THAN | IS_EQUAL | DIFERENT) expression expression_aux//Binary Operator Comparator
+//                 |  AND expression expression_aux //Binary AND
+//                 |  OR expression expression_aux //Binary OR
+//                 |;
 
 simple_expression : LITERAL_INT
                   | NULL
@@ -47,8 +89,8 @@ simple_expression : LITERAL_INT
                   | function_invocation;
 
 
-
-index_pointer: expression L_BRACKET expression R_BRACKET ;
+// must declare here to use it later
+index_pointer: expression L_BRACKET expression (R_BRACKET | {notifyErrorListeners("Missing ']'");});
 
 expression_list: expression | (COMMA expression)* | ;
 

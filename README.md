@@ -12,6 +12,17 @@ First part
 
 ### Grammar and Error 
 Second part of the work 
+- Errors
+1. There's an error when ";" is missing
+2. There's an error when "}" is missing in the function block
+3. There's an error when a function type is not indicated 
+4. There's an error when a "]" is missing in the array pointer expression
+
+- Left recursion
+We commented two ways of remove left recursion in our grammar in the expressions part
+
+- Left factored
+We have everything left factored
 
 
 
