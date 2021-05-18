@@ -23,11 +23,19 @@ public interface algVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDeclaration(alg.DeclarationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alg#variable_declation}.
+	 * Visit a parse tree produced by the {@code SimpleDeclaration}
+	 * labeled alternative in {@link alg#variable_declation}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitVariable_declation(alg.Variable_declationContext ctx);
+	T visitSimpleDeclaration(alg.SimpleDeclarationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code InitializationDeclaration}
+	 * labeled alternative in {@link alg#variable_declation}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInitializationDeclaration(alg.InitializationDeclarationContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link alg#simple_declaration}.
 	 * @param ctx the parse tree

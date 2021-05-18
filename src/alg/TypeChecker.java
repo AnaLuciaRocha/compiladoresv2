@@ -5,6 +5,9 @@ import Symbols.Scope;
 import Symbols.Symbol;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
+import org.antlr.v4.runtime.tree.TerminalNode;
+
+import java.util.ListIterator;
 
 public class TypeChecker extends algBaseListener {
 
@@ -42,6 +45,16 @@ public class TypeChecker extends algBaseListener {
     public void exitStart(alg.StartContext ctx)
     {
         System.out.println(this.currentScope.toString());
+    }
+
+    public void exitSimple_declaration(alg.Simple_declarationContext ctx)
+    {
+
+        //Iterate in the INDENT list (simple_declaration : type INDENT (COMMA INDENT)*; //int i,j) and save all the symbols.
+        for (TerminalNode terminalNode : ctx.INDENT()) {
+            defineSymbol(ctx, new Symbol(ctx.type().start.getText(), terminalNode.getText()));
+        }
+
     }
 
 }

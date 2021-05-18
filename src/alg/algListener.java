@@ -28,15 +28,29 @@ public interface algListener extends ParseTreeListener {
 	 */
 	void exitDeclaration(alg.DeclarationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link alg#variable_declation}.
+	 * Enter a parse tree produced by the {@code SimpleDeclaration}
+	 * labeled alternative in {@link alg#variable_declation}.
 	 * @param ctx the parse tree
 	 */
-	void enterVariable_declation(alg.Variable_declationContext ctx);
+	void enterSimpleDeclaration(alg.SimpleDeclarationContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link alg#variable_declation}.
+	 * Exit a parse tree produced by the {@code SimpleDeclaration}
+	 * labeled alternative in {@link alg#variable_declation}.
 	 * @param ctx the parse tree
 	 */
-	void exitVariable_declation(alg.Variable_declationContext ctx);
+	void exitSimpleDeclaration(alg.SimpleDeclarationContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code InitializationDeclaration}
+	 * labeled alternative in {@link alg#variable_declation}.
+	 * @param ctx the parse tree
+	 */
+	void enterInitializationDeclaration(alg.InitializationDeclarationContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code InitializationDeclaration}
+	 * labeled alternative in {@link alg#variable_declation}.
+	 * @param ctx the parse tree
+	 */
+	void exitInitializationDeclaration(alg.InitializationDeclarationContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link alg#simple_declaration}.
 	 * @param ctx the parse tree

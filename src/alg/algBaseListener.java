@@ -40,13 +40,25 @@ public class algBaseListener implements algListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVariable_declation(alg.Variable_declationContext ctx) { }
+	@Override public void enterSimpleDeclaration(alg.SimpleDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVariable_declation(alg.Variable_declationContext ctx) { }
+	@Override public void exitSimpleDeclaration(alg.SimpleDeclarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInitializationDeclaration(alg.InitializationDeclarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInitializationDeclaration(alg.InitializationDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -1,14 +1,10 @@
 package com.company;
 
 
-import alg.algLexer;
-import alg.alg;
 import alg.TypeChecker;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
+import alg.alg;
+import alg.algLexer;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -19,7 +15,7 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            algLexer simpleLexer = new algLexer(CharStreams.fromFileName("example.sim"));
+            algLexer simpleLexer = new algLexer(CharStreams.fromFileName("ex.sim"));
             alg simpleParser = new alg(new CommonTokenStream(simpleLexer));
             ParseTree tree = simpleParser.start();
             System.out.println("syntatic parsing finished");

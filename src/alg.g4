@@ -8,8 +8,7 @@ start: declaration+ EOF;
 declaration: variable_declation (SEMI_COLON | {notifyErrorListeners("Missing ';'");})
             | function_declaration;
 
-variable_declation: (simple_declaration
-                    | initialization_declaration);
+variable_declation: simple_declaration #SimpleDeclaration| initialization_declaration #InitializationDeclaration;
 
 simple_declaration : type INDENT (COMMA INDENT)*; //int i,j
 
