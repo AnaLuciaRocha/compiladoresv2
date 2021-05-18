@@ -141,6 +141,7 @@ public class algLexer extends Lexer {
 	private void LITERAL_INT_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
 		case 0:
+			1
 			break;
 		}
 	}

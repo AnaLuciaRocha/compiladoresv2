@@ -1,8 +1,7 @@
 package com.company;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import alg.alg;
-import alg.algLexer;
+
 import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
