@@ -30,8 +30,18 @@ public class TypeChecker extends algBaseListener {
     }
 
 
-    public void enterStart(alg.StartContext ctx) {
+    public void enterStart(alg.StartContext ctx)
+    {
+        globalScope = new Scope(null);
+        this.currentScope = globalScope;
+        validated = true;
+    }
 
+    //estamos a imprimir só para ver todos os símbolos que foram criados no scope global
+    //está aqui para informação de debug
+    public void exitStart(alg.StartContext ctx)
+    {
+        System.out.println(this.currentScope.toString());
     }
 
 }
