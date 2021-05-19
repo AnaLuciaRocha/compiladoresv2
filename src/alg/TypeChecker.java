@@ -17,11 +17,10 @@ public class TypeChecker extends algBaseListener {
     public boolean validated;
 
     ParseTreeProperty<Symbol.PType> exprType = new ParseTreeProperty<>();
+
     //métodos auxiliar (é usado em 2 regras gramaticais)
-    private boolean defineSymbol(ParserRuleContext ctx, Symbol s)
-    {
-        if(!this.currentScope.define(s))
-        {
+    private boolean defineSymbol(ParserRuleContext ctx, Symbol s) {
+        if (!this.currentScope.define(s)) {
             //estejam à vontade para mudar as mensagens de erro!
             //ou adicionar mais informação, como por exemplo qual a posição da linha onde começa a variável com erro
             //ou até mesmo onde é que está definida a variável original...
@@ -33,8 +32,7 @@ public class TypeChecker extends algBaseListener {
     }
 
 
-    public void enterStart(alg.StartContext ctx)
-    {
+    public void enterStart(alg.StartContext ctx) {
         globalScope = new Scope(null);
         this.currentScope = globalScope;
         validated = true;
@@ -42,13 +40,11 @@ public class TypeChecker extends algBaseListener {
 
     //estamos a imprimir só para ver todos os símbolos que foram criados no scope global
     //está aqui para informação de debug
-    public void exitStart(alg.StartContext ctx)
-    {
+    public void exitStart(alg.StartContext ctx) {
         System.out.println(this.currentScope.toString());
     }
 
-    public void exitSimple_declaration(alg.Simple_declarationContext ctx)
-    {
+    public void exitSimple_declaration(alg.Simple_declarationContext ctx) {
 
         //Iterate in the INDENT list (simple_declaration : type INDENT (COMMA INDENT)*; //int i,j) and save all the symbols.
         for (TerminalNode terminalNode : ctx.INDENT()) {
@@ -56,5 +52,11 @@ public class TypeChecker extends algBaseListener {
         }
 
     }
+
+    public void exitInitialization_declaration(alg.Initialization_declarationContext ctx)
+    {
+        defineSymbol(ctx, new Symbol(ctx.type().start.getText(), ctx.INDENT().getText()));
+    }
+
 
 }

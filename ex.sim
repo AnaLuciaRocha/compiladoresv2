@@ -1,1 +1,2 @@
 int x, y;
+int a = 1;
