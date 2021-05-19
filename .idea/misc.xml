@@ -6,7 +6,7 @@
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/src/algLexer.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="C:\Users\x1\OneDrive - Universidade do Algarve\LEI\06_Semestre\P2\src" />
+          <option name="outputDir" value="$PROJECT_DIR$/src" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
           <option name="pkg" value="alg" />
@@ -16,7 +16,7 @@
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/src/alg.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="C:\Users\x1\OneDrive - Universidade do Algarve\LEI\06_Semestre\P2\src" />
+          <option name="outputDir" value="$PROJECT_DIR$/src" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
           <option name="pkg" value="alg" />
@@ -29,7 +29,7 @@
   <component name="ProjectKey">
     <option name="state" value="project://e2804f05-5315-4fc6-a121-c522a6c26470" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_13" default="true" project-jdk-name="13" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_15" default="true" project-jdk-name="15" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

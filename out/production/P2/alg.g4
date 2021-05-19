@@ -8,8 +8,7 @@ start: declaration+ EOF;
 declaration: variable_declation (SEMI_COLON | {notifyErrorListeners("Missing ';'");})
             | function_declaration;
 
-variable_declation: (simple_declaration
-                    | initialization_declaration);
+variable_declation: simple_declaration #SimpleDeclaration| initialization_declaration #InitializationDeclaration;
 
 simple_declaration : type INDENT (COMMA INDENT)*; //int i,j
 
@@ -24,7 +23,7 @@ type :
     | STRING
     | LESS_THAN  type  GREATER_THAN ;
 
-// Expressions without
+// Expressions Left Recursion
 expression:
             simple_expression
             | L_PAREN expression R_PAREN // Parentheses
@@ -64,20 +63,6 @@ expression:
 //op4: AND;
 //op5: OR;
 
-//Left recursion fixed in a different way
-//expression:
-//            simple_expression expression_aux
-//            | L_PAREN expression R_PAREN expression_aux // Parentheses
-//            | (PLUS | MINUS | NOT | QUESTION) expression expression_aux //Unary Operator
-//            ;
-//
-//expression_aux:  L_BRACKET expression R_BRACKET expression_aux
-//                 | (MULT | DIV | REMAIN) expression expression_aux
-//                 | (PLUS | MINUS) expression expression_aux //Binary Operator Lower Priority
-//                 | (LESS_THAN | GREATER_THAN | LESS_EQUAL_THAN | GREATER_EQUAL_THAN | IS_EQUAL | DIFERENT) expression expression_aux//Binary Operator Comparator
-//                 |  AND expression expression_aux //Binary AND
-//                 |  OR expression expression_aux //Binary OR
-//                 |;
 
 simple_expression : LITERAL_INT
                   | NULL

@@ -1,4 +1,4 @@
-// Generated from C:/Users/x1/OneDrive - Universidade do Algarve/LEI/06_Semestre/P2/src\alg.g4 by ANTLR 4.9.1
+// Generated from /home/jay/IdeaProjects/compiladoresv2/src/alg.g4 by ANTLR 4.9.1
 package alg;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -271,27 +271,51 @@ public class alg extends Parser {
 	}
 
 	public static class Variable_declationContext extends ParserRuleContext {
-		public Simple_declarationContext simple_declaration() {
-			return getRuleContext(Simple_declarationContext.class,0);
-		}
-		public Initialization_declarationContext initialization_declaration() {
-			return getRuleContext(Initialization_declarationContext.class,0);
-		}
 		public Variable_declationContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_variable_declation; }
+	 
+		public Variable_declationContext() { }
+		public void copyFrom(Variable_declationContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class InitializationDeclarationContext extends Variable_declationContext {
+		public Initialization_declarationContext initialization_declaration() {
+			return getRuleContext(Initialization_declarationContext.class,0);
+		}
+		public InitializationDeclarationContext(Variable_declationContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof algListener ) ((algListener)listener).enterVariable_declation(this);
+			if ( listener instanceof algListener ) ((algListener)listener).enterInitializationDeclaration(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof algListener ) ((algListener)listener).exitVariable_declation(this);
+			if ( listener instanceof algListener ) ((algListener)listener).exitInitializationDeclaration(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof algVisitor ) return ((algVisitor<? extends T>)visitor).visitVariable_declation(this);
+			if ( visitor instanceof algVisitor ) return ((algVisitor<? extends T>)visitor).visitInitializationDeclaration(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class SimpleDeclarationContext extends Variable_declationContext {
+		public Simple_declarationContext simple_declaration() {
+			return getRuleContext(Simple_declarationContext.class,0);
+		}
+		public SimpleDeclarationContext(Variable_declationContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).enterSimpleDeclaration(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).exitSimpleDeclaration(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof algVisitor ) return ((algVisitor<? extends T>)visitor).visitSimpleDeclaration(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -300,24 +324,25 @@ public class alg extends Parser {
 		Variable_declationContext _localctx = new Variable_declationContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_variable_declation);
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
 			setState(67);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 			case 1:
+				_localctx = new SimpleDeclarationContext(_localctx);
+				enterOuterAlt(_localctx, 1);
 				{
 				setState(65);
 				simple_declaration();
 				}
 				break;
 			case 2:
+				_localctx = new InitializationDeclarationContext(_localctx);
+				enterOuterAlt(_localctx, 2);
 				{
 				setState(66);
 				initialization_declaration();
 				}
 				break;
-			}
 			}
 		}
 		catch (RecognitionException re) {

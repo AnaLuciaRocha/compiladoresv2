@@ -1,6 +1,0 @@
-int i;
-
-void teste(int i) {
-    int i;
-    i = 2;
-}
