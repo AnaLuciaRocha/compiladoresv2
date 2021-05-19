@@ -1,2 +1,7 @@
-int x, y;
-int a = 1;
+int x;
+float y;
+
+
+int alg(int x, float y) {
+    LEAVE;
+}

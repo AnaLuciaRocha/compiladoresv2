@@ -8,7 +8,8 @@ start: declaration+ EOF;
 declaration: variable_declation (SEMI_COLON | {notifyErrorListeners("Missing ';'");})
             | function_declaration;
 
-variable_declation: simple_declaration #SimpleDeclaration| initialization_declaration #InitializationDeclaration;
+variable_declation: simple_declaration #SimpleDeclaration
+                    | initialization_declaration #InitializationDeclaration;
 
 simple_declaration : type INDENT (COMMA INDENT)*; //int i,j
 
@@ -88,8 +89,10 @@ function_invocation_special : AT  L_PAREN  R_PAREN
                             | SIZEOF  L_PAREN expression R_PAREN
                             | (WRITE | WRITELN) function_invocation ;
 
-function_declaration: (function_type |  {notifyErrorListeners("A function must have a type");}) INDENT L_PAREN arg* R_PAREN body ;
+function_declaration: ((function_type |  {notifyErrorListeners("A function must have a type");}) INDENT L_PAREN arg* R_PAREN |
+                        main_function_declaration )body ;
 
+main_function_declaration : INT ALG '(' INT INDENT ',' '<' STRING '>' INDENT ')' body;
 function_type : VOID | type;
 
 

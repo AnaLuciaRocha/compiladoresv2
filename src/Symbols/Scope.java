@@ -23,6 +23,11 @@ public class Scope {
         return this.parentScope == null;
     }
 
+    /**
+     *
+     * @param symbol
+     * @return adiciona novo simbolo a tabela
+     */
     public boolean define(Symbol symbol)
     {
         if(this.symbols.containsKey(symbol.name))return false;
@@ -31,6 +36,11 @@ public class Scope {
         return true;
     }
 
+    /**
+     *
+     * @param name
+     * @return retorna o simbolo
+     */
     public Symbol resolve(String name)
     {
         Symbol s = this.symbols.get(name);

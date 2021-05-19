@@ -1,0 +1,27 @@
+int x;
+void y;
+
+void empty() {}
+
+int f(int x, float y, int x) { //same variable repeated in arguments, (error)
+    float z;
+    float x; //same variable as in arguments (error)
+    g(); //forward reference for functions should work
+    i = 3; // no declaration for i (error)
+    k = 6; //no forward reference for variables (error);
+    g = 4; // g is function, not variable (error)
+    int k;
+    4 * empty();
+    return x + y; // x, y are defined, so no problem
+}
+
+void g() {
+    int x = 0;
+    float y;
+    y = 9; // y is defined
+    y = 3 * y;
+    f(); // backward reference is ok
+    z(); // no such function (error)
+    y(); // y is not function (error)
+    x = f; // f is not a variable (error)
+}

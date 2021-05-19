@@ -41,7 +41,10 @@ public class TypeChecker extends algBaseListener {
     //estamos a imprimir só para ver todos os símbolos que foram criados no scope global
     //está aqui para informação de debug
     public void exitStart(alg.StartContext ctx) {
-        System.out.println(this.currentScope.toString());
+        if(globalScope.resolve("alg") != null)
+            System.out.println(this.currentScope.toString());
+        else
+            System.err.println("Missing principal function 'alg'");
     }
 
     public void exitSimple_declaration(alg.Simple_declarationContext ctx) {
