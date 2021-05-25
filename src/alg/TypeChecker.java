@@ -7,6 +7,7 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import java.beans.Expression;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -50,10 +51,6 @@ public class TypeChecker extends algBaseListener {
     }
 
 
-<<<<<<< HEAD
-
-    //simple_declaration : type INDENT (COMMA INDENT)*; //int i,j)
-=======
     //Saida de uma variavel. Retorna erro caso a variavel nao foi definida antes ou é utilizada como uma função.
     public void exitVar(alg.VarContext ctx)
     {
@@ -78,7 +75,6 @@ public class TypeChecker extends algBaseListener {
     }
 
     //Saida de uma simple_declaration, define os symbols iterando sobre a lista de indentificadores
->>>>>>> origin/TypeChecker-Jay
     public void exitSimple_declaration(alg.Simple_declarationContext ctx) {
 
         //Iterate in the INDENT list (simple_declaration : type INDENT (COMMA INDENT)*; //int i,j) and save all the symbols.
@@ -87,26 +83,17 @@ public class TypeChecker extends algBaseListener {
         }
     }
 
-<<<<<<< HEAD
 //    public void exitInitialization_declaration(alg.Initialization_declarationContext ctx)
 //    {
 //        defineSymbol(ctx, new Symbol(ctx.type().start.getText(), ctx.INDENT().getText()));
 //    }
 
-    // function_invocation_special -> (WRITE | WRITELN) '(' expression_list ')'
-    public void exitWriteFunction(alg.WriteFunctionContext ctx){
-//        Symbol.PType e1 = exprType.get(ctx.getToken()
-        List<alg.ExpressionContext> expressions = ctx.expression_list().expression();
-        for( alg.ExpressionContext expr : expressions){
-           if(exprType.get(expr).toString().contains("POINTER"))
-               System.err.println("Cannot print pointer types");
-        }
 
-=======
+
     //Saida de uma initialization_declaration, define um symbol para a dada inicializacao
     public void exitInitialization_declaration(alg.Initialization_declarationContext ctx) {
         defineSymbol(ctx, new Symbol(ctx.type().start.getText(), ctx.INDENT().getText()));
->>>>>>> origin/TypeChecker-Jay
+
     }
 
 
@@ -379,9 +366,13 @@ public class TypeChecker extends algBaseListener {
 //        }
 //    }
 
-
-
-
-
+    // function_invocation_special -> (WRITE | WRITELN) '(' expression_list ')'
+    public void exitWriteFunction(alg.WriteFunctionContext ctx){
+//        Symbol.PType e1 = exprType.get(ctx.getToken()
+        List<alg.ExpressionContext> expressions = ctx.expression_list().expression();
+        for( alg.ExpressionContext expr : expressions){
+            if(exprType.get(expr).toString().contains("POINTER"))
+                System.err.println("Cannot print pointer types");
+        }
 
 }

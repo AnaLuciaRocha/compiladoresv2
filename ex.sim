@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 int x;
 float y;
 
@@ -8,10 +8,4 @@ int alg(int x, float y) {
 
     LEAVE;
 }
-=======
-int x()
-{
-3*true;
-leave;
-}
->>>>>>> origin/TypeChecker-Jay
+
