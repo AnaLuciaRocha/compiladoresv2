@@ -1,4 +1,4 @@
-// Generated from /home/jay/IdeaProjects/compiladoresv2/src/alg.g4 by ANTLR 4.9.1
+// Generated from C:/Users/x1/OneDrive - Universidade do Algarve/LEI/06_Semestre/P2/src\alg.g4 by ANTLR 4.9.1
 package alg;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -40,25 +40,13 @@ public class algBaseListener implements algListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSimpleDeclaration(alg.SimpleDeclarationContext ctx) { }
+	@Override public void enterVariable_declation(alg.Variable_declationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSimpleDeclaration(alg.SimpleDeclarationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterInitializationDeclaration(alg.InitializationDeclarationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitInitializationDeclaration(alg.InitializationDeclarationContext ctx) { }
+	@Override public void exitVariable_declation(alg.Variable_declationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -160,13 +148,37 @@ public class algBaseListener implements algListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunction_invocation_special(alg.Function_invocation_specialContext ctx) { }
+	@Override public void enterStdReadFunction(alg.StdReadFunctionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunction_invocation_special(alg.Function_invocation_specialContext ctx) { }
+	@Override public void exitStdReadFunction(alg.StdReadFunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSizeOfFunction(alg.SizeOfFunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSizeOfFunction(alg.SizeOfFunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterWriteFunction(alg.WriteFunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWriteFunction(alg.WriteFunctionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -179,6 +191,18 @@ public class algBaseListener implements algListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFunction_declaration(alg.Function_declarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMain_function_declaration(alg.Main_function_declarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMain_function_declaration(alg.Main_function_declarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

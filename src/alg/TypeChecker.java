@@ -7,6 +7,7 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
+import java.util.List;
 import java.util.ListIterator;
 
 public class TypeChecker extends algBaseListener {
@@ -47,18 +48,31 @@ public class TypeChecker extends algBaseListener {
             System.err.println("Missing principal function 'alg'");
     }
 
+
+
+    //simple_declaration : type INDENT (COMMA INDENT)*; //int i,j)
     public void exitSimple_declaration(alg.Simple_declarationContext ctx) {
 
         //Iterate in the INDENT list (simple_declaration : type INDENT (COMMA INDENT)*; //int i,j) and save all the symbols.
         for (TerminalNode terminalNode : ctx.INDENT()) {
-            defineSymbol(ctx, new Symbol(ctx.type().start.getText(), terminalNode.getText()));
+            defineSymbol(ctx, new Symbol(ctx.type().start.getText(), terminalNode.getText())); //esta na tabela de simbolos
         }
-
     }
 
-    public void exitInitialization_declaration(alg.Initialization_declarationContext ctx)
-    {
-        defineSymbol(ctx, new Symbol(ctx.type().start.getText(), ctx.INDENT().getText()));
+//    public void exitInitialization_declaration(alg.Initialization_declarationContext ctx)
+//    {
+//        defineSymbol(ctx, new Symbol(ctx.type().start.getText(), ctx.INDENT().getText()));
+//    }
+
+    // function_invocation_special -> (WRITE | WRITELN) '(' expression_list ')'
+    public void exitWriteFunction(alg.WriteFunctionContext ctx){
+//        Symbol.PType e1 = exprType.get(ctx.getToken()
+        List<alg.ExpressionContext> expressions = ctx.expression_list().expression();
+        for( alg.ExpressionContext expr : expressions){
+           if(exprType.get(expr).toString().contains("POINTER"))
+               System.err.println("Cannot print pointer types");
+        }
+
     }
 
 

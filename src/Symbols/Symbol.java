@@ -9,6 +9,13 @@ public class Symbol {
     {
         INT,
         FLOAT,
+        BOOL,
+        STRING,
+        POINTER_INT,
+        POINTER_BOOL,
+        POINTER_FLOAT,
+        POINTER_STRING,
+        POINTER_VOID,
         VOID,
         ERR
     }
@@ -22,6 +29,15 @@ public class Symbol {
     {
         this.type = PType.valueOf(type.toUpperCase(Locale.ROOT));
         this.name = name;
+    }
+
+    /**
+     * Compara TODO
+     */
+    public boolean maxType(Symbol b){
+        boolean result = false;
+
+        return result;
     }
 
     public String toString()

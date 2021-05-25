@@ -1,4 +1,4 @@
-// Generated from /home/jay/IdeaProjects/compiladoresv2/src/algLexer.g4 by ANTLR 4.9.1
+// Generated from C:\Users\x1\OneDrive - Universidade do Algarve\LEI\06_Semestre\P2\src\algLexer.g4 by ANTLR 4.9.1
 package alg;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
@@ -141,7 +141,7 @@ public class algLexer extends Lexer {
 	private void LITERAL_INT_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
 		case 0:
-
+			1
 			break;
 		}
 	}

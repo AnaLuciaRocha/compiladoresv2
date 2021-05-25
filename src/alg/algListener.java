@@ -1,4 +1,4 @@
-// Generated from /home/jay/IdeaProjects/compiladoresv2/src/alg.g4 by ANTLR 4.9.1
+// Generated from C:/Users/x1/OneDrive - Universidade do Algarve/LEI/06_Semestre/P2/src\alg.g4 by ANTLR 4.9.1
 package alg;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -28,29 +28,15 @@ public interface algListener extends ParseTreeListener {
 	 */
 	void exitDeclaration(alg.DeclarationContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code SimpleDeclaration}
-	 * labeled alternative in {@link alg#variable_declation}.
+	 * Enter a parse tree produced by {@link alg#variable_declation}.
 	 * @param ctx the parse tree
 	 */
-	void enterSimpleDeclaration(alg.SimpleDeclarationContext ctx);
+	void enterVariable_declation(alg.Variable_declationContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code SimpleDeclaration}
-	 * labeled alternative in {@link alg#variable_declation}.
+	 * Exit a parse tree produced by {@link alg#variable_declation}.
 	 * @param ctx the parse tree
 	 */
-	void exitSimpleDeclaration(alg.SimpleDeclarationContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code InitializationDeclaration}
-	 * labeled alternative in {@link alg#variable_declation}.
-	 * @param ctx the parse tree
-	 */
-	void enterInitializationDeclaration(alg.InitializationDeclarationContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code InitializationDeclaration}
-	 * labeled alternative in {@link alg#variable_declation}.
-	 * @param ctx the parse tree
-	 */
-	void exitInitializationDeclaration(alg.InitializationDeclarationContext ctx);
+	void exitVariable_declation(alg.Variable_declationContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link alg#simple_declaration}.
 	 * @param ctx the parse tree
@@ -132,15 +118,41 @@ public interface algListener extends ParseTreeListener {
 	 */
 	void exitFunction_invocation(alg.Function_invocationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link alg#function_invocation_special}.
+	 * Enter a parse tree produced by the {@code StdReadFunction}
+	 * labeled alternative in {@link alg#function_invocation_special}.
 	 * @param ctx the parse tree
 	 */
-	void enterFunction_invocation_special(alg.Function_invocation_specialContext ctx);
+	void enterStdReadFunction(alg.StdReadFunctionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link alg#function_invocation_special}.
+	 * Exit a parse tree produced by the {@code StdReadFunction}
+	 * labeled alternative in {@link alg#function_invocation_special}.
 	 * @param ctx the parse tree
 	 */
-	void exitFunction_invocation_special(alg.Function_invocation_specialContext ctx);
+	void exitStdReadFunction(alg.StdReadFunctionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SizeOfFunction}
+	 * labeled alternative in {@link alg#function_invocation_special}.
+	 * @param ctx the parse tree
+	 */
+	void enterSizeOfFunction(alg.SizeOfFunctionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SizeOfFunction}
+	 * labeled alternative in {@link alg#function_invocation_special}.
+	 * @param ctx the parse tree
+	 */
+	void exitSizeOfFunction(alg.SizeOfFunctionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code WriteFunction}
+	 * labeled alternative in {@link alg#function_invocation_special}.
+	 * @param ctx the parse tree
+	 */
+	void enterWriteFunction(alg.WriteFunctionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code WriteFunction}
+	 * labeled alternative in {@link alg#function_invocation_special}.
+	 * @param ctx the parse tree
+	 */
+	void exitWriteFunction(alg.WriteFunctionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link alg#function_declaration}.
 	 * @param ctx the parse tree
@@ -151,6 +163,16 @@ public interface algListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFunction_declaration(alg.Function_declarationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link alg#main_function_declaration}.
+	 * @param ctx the parse tree
+	 */
+	void enterMain_function_declaration(alg.Main_function_declarationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link alg#main_function_declaration}.
+	 * @param ctx the parse tree
+	 */
+	void exitMain_function_declaration(alg.Main_function_declarationContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link alg#function_type}.
 	 * @param ctx the parse tree
