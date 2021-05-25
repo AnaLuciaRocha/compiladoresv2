@@ -9,8 +9,12 @@ public class Symbol {
     {
         INT,
         FLOAT,
+        STRING,
+        BOOL,
         VOID,
-        ERR
+        ERR,
+        NULL,
+        POINTER,
     }
 
     public PType type;

@@ -82,25 +82,209 @@ public interface algListener extends ParseTreeListener {
 	 */
 	void exitType(alg.TypeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link alg#expression}.
+	 * Enter a parse tree produced by the {@code SimpleExpr}
+	 * labeled alternative in {@link alg#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpression(alg.ExpressionContext ctx);
+	void enterSimpleExpr(alg.SimpleExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link alg#expression}.
+	 * Exit a parse tree produced by the {@code SimpleExpr}
+	 * labeled alternative in {@link alg#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpression(alg.ExpressionContext ctx);
+	void exitSimpleExpr(alg.SimpleExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link alg#simple_expression}.
+	 * Enter a parse tree produced by the {@code PlusMinus}
+	 * labeled alternative in {@link alg#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterSimple_expression(alg.Simple_expressionContext ctx);
+	void enterPlusMinus(alg.PlusMinusContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link alg#simple_expression}.
+	 * Exit a parse tree produced by the {@code PlusMinus}
+	 * labeled alternative in {@link alg#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitSimple_expression(alg.Simple_expressionContext ctx);
+	void exitPlusMinus(alg.PlusMinusContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code IndexArr}
+	 * labeled alternative in {@link alg#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterIndexArr(alg.IndexArrContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code IndexArr}
+	 * labeled alternative in {@link alg#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitIndexArr(alg.IndexArrContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AndComparator}
+	 * labeled alternative in {@link alg#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterAndComparator(alg.AndComparatorContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AndComparator}
+	 * labeled alternative in {@link alg#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitAndComparator(alg.AndComparatorContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code OrComparator}
+	 * labeled alternative in {@link alg#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterOrComparator(alg.OrComparatorContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code OrComparator}
+	 * labeled alternative in {@link alg#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitOrComparator(alg.OrComparatorContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ParenExpr}
+	 * labeled alternative in {@link alg#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterParenExpr(alg.ParenExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ParenExpr}
+	 * labeled alternative in {@link alg#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitParenExpr(alg.ParenExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Unary}
+	 * labeled alternative in {@link alg#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnary(alg.UnaryContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Unary}
+	 * labeled alternative in {@link alg#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnary(alg.UnaryContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code BinaryComparator}
+	 * labeled alternative in {@link alg#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterBinaryComparator(alg.BinaryComparatorContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code BinaryComparator}
+	 * labeled alternative in {@link alg#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitBinaryComparator(alg.BinaryComparatorContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code MultDiv}
+	 * labeled alternative in {@link alg#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterMultDiv(alg.MultDivContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code MultDiv}
+	 * labeled alternative in {@link alg#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitMultDiv(alg.MultDivContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Int}
+	 * labeled alternative in {@link alg#simple_expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterInt(alg.IntContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Int}
+	 * labeled alternative in {@link alg#simple_expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitInt(alg.IntContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Null}
+	 * labeled alternative in {@link alg#simple_expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterNull(alg.NullContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Null}
+	 * labeled alternative in {@link alg#simple_expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitNull(alg.NullContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Var}
+	 * labeled alternative in {@link alg#simple_expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterVar(alg.VarContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Var}
+	 * labeled alternative in {@link alg#simple_expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitVar(alg.VarContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Double}
+	 * labeled alternative in {@link alg#simple_expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterDouble(alg.DoubleContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Double}
+	 * labeled alternative in {@link alg#simple_expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitDouble(alg.DoubleContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code String}
+	 * labeled alternative in {@link alg#simple_expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterString(alg.StringContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code String}
+	 * labeled alternative in {@link alg#simple_expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitString(alg.StringContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code True}
+	 * labeled alternative in {@link alg#simple_expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrue(alg.TrueContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code True}
+	 * labeled alternative in {@link alg#simple_expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrue(alg.TrueContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code False}
+	 * labeled alternative in {@link alg#simple_expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterFalse(alg.FalseContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code False}
+	 * labeled alternative in {@link alg#simple_expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitFalse(alg.FalseContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code FunctionIn}
+	 * labeled alternative in {@link alg#simple_expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionIn(alg.FunctionInContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code FunctionIn}
+	 * labeled alternative in {@link alg#simple_expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionIn(alg.FunctionInContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link alg#index_pointer}.
 	 * @param ctx the parse tree
