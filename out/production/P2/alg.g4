@@ -21,19 +21,20 @@ type :
     | BOOL
     | FLOAT
     | STRING
+    | NULL
     | LESS_THAN  type  GREATER_THAN ;
 
 // Expressions Left Recursion
 expression:
-            simple_expression
-            | L_PAREN expression R_PAREN // Parentheses
-            | expression L_BRACKET expression R_BRACKET //Indexecao do array
-            | (PLUS | MINUS | NOT | QUESTION) expression //Unary Operator
-            | expression (MULT | DIV | REMAIN) expression //Binary Operator Higher Priority
-            | expression (PLUS | MINUS) expression //Binary Operator Lower Priority
-            | expression (LESS_THAN | GREATER_THAN | LESS_EQUAL_THAN | GREATER_EQUAL_THAN | IS_EQUAL | DIFERENT) expression //Binary Operator Comparator
-            | expression AND expression //Binary AND
-            | expression OR expression //Binary OR
+            simple_expression                             #SimpleExpr
+            | L_PAREN expression R_PAREN                  #ParenExpr// Parentheses
+            | expression L_BRACKET expression R_BRACKET   #IndexArr//Indexecao do array
+            | (PLUS | MINUS | NOT | QUESTION) expression  #Unary//Unary Operator
+            | expression (MULT | DIV | REMAIN) expression #MultDiv //Binary Operator Higher Priority
+            | expression (PLUS | MINUS) expression        #PlusMinus//Binary Operator Lower Priority
+            | expression (LESS_THAN | GREATER_THAN | LESS_EQUAL_THAN | GREATER_EQUAL_THAN | IS_EQUAL | DIFERENT) expression #BinaryComparator //Binary Operator Comparator
+            | expression AND expression                   #AndComparator//Binary AND
+            | expression OR expression                    #OrComparator//Binary OR
             ;
 //Left recursion fixed
 //expression: expression2 expression_aux;
@@ -41,7 +42,7 @@ expression:
 //expression2: expression3 expression_aux2;
 //expression_aux2: op2 expression3 expression_aux2 | ;
 //expression3: expression4 expression_aux3;
-//expression_aux3: op3 expression4 expression_aux3 | ;
+//expression_aux3: op3 expression4 expression_aux3 | ;expression
 //expression4: expression5 expression_aux4;
 //expression_aux4: op4 expression5 expression_aux4 | ;
 //expression5: expression6 expression_aux5;
@@ -64,14 +65,14 @@ expression:
 //op5: OR;
 
 
-simple_expression : LITERAL_INT
-                  | NULL
-                  | INDENT
-                  | DOUBLE
-                  | LITERAL_STRING
-                  | TRUE
-                  | FALSE
-                  | function_invocation;
+simple_expression : LITERAL_INT              #Int
+                  | NULL                     #Null
+                  | INDENT                   #Var
+                  | DOUBLE                   #Double
+                  | LITERAL_STRING           #String
+                  | TRUE                     #True
+                  | FALSE                    #False
+                  | function_invocation     #FunctionIn;
 
 
 // must declare here to use it later

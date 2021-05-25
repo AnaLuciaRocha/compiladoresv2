@@ -1,2 +1,5 @@
-int x, y;
-int a = 1;
+int x()
+{
+3*true;
+leave;
+}
