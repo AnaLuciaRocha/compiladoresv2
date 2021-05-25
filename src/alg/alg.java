@@ -586,49 +586,223 @@ public class alg extends Parser {
 	}
 
 	public static class ExpressionContext extends ParserRuleContext {
+		public ExpressionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_expression; }
+	 
+		public ExpressionContext() { }
+		public void copyFrom(ExpressionContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class SimpleExprContext extends ExpressionContext {
 		public Simple_expressionContext simple_expression() {
 			return getRuleContext(Simple_expressionContext.class,0);
 		}
-		public TerminalNode L_PAREN() { return getToken(alg.L_PAREN, 0); }
+		public SimpleExprContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).enterSimpleExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).exitSimpleExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof algVisitor ) return ((algVisitor<? extends T>)visitor).visitSimpleExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class PlusMinusContext extends ExpressionContext {
 		public List<ExpressionContext> expression() {
 			return getRuleContexts(ExpressionContext.class);
 		}
 		public ExpressionContext expression(int i) {
 			return getRuleContext(ExpressionContext.class,i);
 		}
+		public TerminalNode PLUS() { return getToken(alg.PLUS, 0); }
+		public TerminalNode MINUS() { return getToken(alg.MINUS, 0); }
+		public PlusMinusContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).enterPlusMinus(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).exitPlusMinus(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof algVisitor ) return ((algVisitor<? extends T>)visitor).visitPlusMinus(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class IndexArrContext extends ExpressionContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public TerminalNode L_BRACKET() { return getToken(alg.L_BRACKET, 0); }
+		public TerminalNode R_BRACKET() { return getToken(alg.R_BRACKET, 0); }
+		public IndexArrContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).enterIndexArr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).exitIndexArr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof algVisitor ) return ((algVisitor<? extends T>)visitor).visitIndexArr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class AndComparatorContext extends ExpressionContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public TerminalNode AND() { return getToken(alg.AND, 0); }
+		public AndComparatorContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).enterAndComparator(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).exitAndComparator(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof algVisitor ) return ((algVisitor<? extends T>)visitor).visitAndComparator(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class OrComparatorContext extends ExpressionContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public TerminalNode OR() { return getToken(alg.OR, 0); }
+		public OrComparatorContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).enterOrComparator(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).exitOrComparator(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof algVisitor ) return ((algVisitor<? extends T>)visitor).visitOrComparator(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ParenExprContext extends ExpressionContext {
+		public TerminalNode L_PAREN() { return getToken(alg.L_PAREN, 0); }
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
 		public TerminalNode R_PAREN() { return getToken(alg.R_PAREN, 0); }
+		public ParenExprContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).enterParenExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).exitParenExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof algVisitor ) return ((algVisitor<? extends T>)visitor).visitParenExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class UnaryContext extends ExpressionContext {
+		public ExpressionContext expression() {
+			return getRuleContext(ExpressionContext.class,0);
+		}
 		public TerminalNode PLUS() { return getToken(alg.PLUS, 0); }
 		public TerminalNode MINUS() { return getToken(alg.MINUS, 0); }
 		public TerminalNode NOT() { return getToken(alg.NOT, 0); }
 		public TerminalNode QUESTION() { return getToken(alg.QUESTION, 0); }
-		public TerminalNode MULT() { return getToken(alg.MULT, 0); }
-		public TerminalNode DIV() { return getToken(alg.DIV, 0); }
-		public TerminalNode REMAIN() { return getToken(alg.REMAIN, 0); }
+		public UnaryContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).enterUnary(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).exitUnary(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof algVisitor ) return ((algVisitor<? extends T>)visitor).visitUnary(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class BinaryComparatorContext extends ExpressionContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
 		public TerminalNode LESS_THAN() { return getToken(alg.LESS_THAN, 0); }
 		public TerminalNode GREATER_THAN() { return getToken(alg.GREATER_THAN, 0); }
 		public TerminalNode LESS_EQUAL_THAN() { return getToken(alg.LESS_EQUAL_THAN, 0); }
 		public TerminalNode GREATER_EQUAL_THAN() { return getToken(alg.GREATER_EQUAL_THAN, 0); }
 		public TerminalNode IS_EQUAL() { return getToken(alg.IS_EQUAL, 0); }
 		public TerminalNode DIFERENT() { return getToken(alg.DIFERENT, 0); }
-		public TerminalNode AND() { return getToken(alg.AND, 0); }
-		public TerminalNode OR() { return getToken(alg.OR, 0); }
-		public TerminalNode L_BRACKET() { return getToken(alg.L_BRACKET, 0); }
-		public TerminalNode R_BRACKET() { return getToken(alg.R_BRACKET, 0); }
-		public ExpressionContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_expression; }
+		public BinaryComparatorContext(ExpressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof algListener ) ((algListener)listener).enterExpression(this);
+			if ( listener instanceof algListener ) ((algListener)listener).enterBinaryComparator(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof algListener ) ((algListener)listener).exitExpression(this);
+			if ( listener instanceof algListener ) ((algListener)listener).exitBinaryComparator(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof algVisitor ) return ((algVisitor<? extends T>)visitor).visitExpression(this);
+			if ( visitor instanceof algVisitor ) return ((algVisitor<? extends T>)visitor).visitBinaryComparator(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class MultDivContext extends ExpressionContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public TerminalNode MULT() { return getToken(alg.MULT, 0); }
+		public TerminalNode DIV() { return getToken(alg.DIV, 0); }
+		public TerminalNode REMAIN() { return getToken(alg.REMAIN, 0); }
+		public MultDivContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).enterMultDiv(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).exitMultDiv(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof algVisitor ) return ((algVisitor<? extends T>)visitor).visitMultDiv(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -664,13 +838,28 @@ public class alg extends Parser {
 			case LITERAL_STRING:
 			case AT:
 				{
+<<<<<<< HEAD
 				setState(101);
+=======
+				_localctx = new SimpleExprContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+
+				setState(99);
+>>>>>>> origin/TypeChecker-Jay
 				simple_expression();
 				}
 				break;
 			case L_PAREN:
 				{
+<<<<<<< HEAD
 				setState(102);
+=======
+				_localctx = new ParenExprContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(100);
+>>>>>>> origin/TypeChecker-Jay
 				match(L_PAREN);
 				setState(103);
 				expression(0);
@@ -683,7 +872,14 @@ public class alg extends Parser {
 			case QUESTION:
 			case NOT:
 				{
+<<<<<<< HEAD
 				setState(106);
+=======
+				_localctx = new UnaryContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(104);
+>>>>>>> origin/TypeChecker-Jay
 				_la = _input.LA(1);
 				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << PLUS) | (1L << MINUS) | (1L << QUESTION) | (1L << NOT))) != 0)) ) {
 				_errHandler.recoverInline(this);
@@ -714,7 +910,7 @@ public class alg extends Parser {
 					switch ( getInterpreter().adaptivePredict(_input,8,_ctx) ) {
 					case 1:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new MultDivContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(110);
 						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
@@ -734,7 +930,7 @@ public class alg extends Parser {
 						break;
 					case 2:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new PlusMinusContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(113);
 						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
@@ -754,7 +950,7 @@ public class alg extends Parser {
 						break;
 					case 3:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new BinaryComparatorContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(116);
 						if (!(precpred(_ctx, 3))) throw new FailedPredicateException(this, "precpred(_ctx, 3)");
@@ -774,7 +970,7 @@ public class alg extends Parser {
 						break;
 					case 4:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new AndComparatorContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(119);
 						if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
@@ -786,7 +982,7 @@ public class alg extends Parser {
 						break;
 					case 5:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new OrComparatorContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(122);
 						if (!(precpred(_ctx, 1))) throw new FailedPredicateException(this, "precpred(_ctx, 1)");
@@ -798,7 +994,7 @@ public class alg extends Parser {
 						break;
 					case 6:
 						{
-						_localctx = new ExpressionContext(_parentctx, _parentState);
+						_localctx = new IndexArrContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
 						setState(125);
 						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
@@ -831,31 +1027,151 @@ public class alg extends Parser {
 	}
 
 	public static class Simple_expressionContext extends ParserRuleContext {
-		public TerminalNode LITERAL_INT() { return getToken(alg.LITERAL_INT, 0); }
-		public TerminalNode NULL() { return getToken(alg.NULL, 0); }
-		public TerminalNode INDENT() { return getToken(alg.INDENT, 0); }
-		public TerminalNode DOUBLE() { return getToken(alg.DOUBLE, 0); }
-		public TerminalNode LITERAL_STRING() { return getToken(alg.LITERAL_STRING, 0); }
-		public TerminalNode TRUE() { return getToken(alg.TRUE, 0); }
-		public TerminalNode FALSE() { return getToken(alg.FALSE, 0); }
-		public Function_invocationContext function_invocation() {
-			return getRuleContext(Function_invocationContext.class,0);
-		}
 		public Simple_expressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_simple_expression; }
+	 
+		public Simple_expressionContext() { }
+		public void copyFrom(Simple_expressionContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class NullContext extends Simple_expressionContext {
+		public TerminalNode NULL() { return getToken(alg.NULL, 0); }
+		public NullContext(Simple_expressionContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof algListener ) ((algListener)listener).enterSimple_expression(this);
+			if ( listener instanceof algListener ) ((algListener)listener).enterNull(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof algListener ) ((algListener)listener).exitSimple_expression(this);
+			if ( listener instanceof algListener ) ((algListener)listener).exitNull(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof algVisitor ) return ((algVisitor<? extends T>)visitor).visitSimple_expression(this);
+			if ( visitor instanceof algVisitor ) return ((algVisitor<? extends T>)visitor).visitNull(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class VarContext extends Simple_expressionContext {
+		public TerminalNode INDENT() { return getToken(alg.INDENT, 0); }
+		public VarContext(Simple_expressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).enterVar(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).exitVar(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof algVisitor ) return ((algVisitor<? extends T>)visitor).visitVar(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class TrueContext extends Simple_expressionContext {
+		public TerminalNode TRUE() { return getToken(alg.TRUE, 0); }
+		public TrueContext(Simple_expressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).enterTrue(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).exitTrue(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof algVisitor ) return ((algVisitor<? extends T>)visitor).visitTrue(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class StringContext extends Simple_expressionContext {
+		public TerminalNode LITERAL_STRING() { return getToken(alg.LITERAL_STRING, 0); }
+		public StringContext(Simple_expressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).enterString(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).exitString(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof algVisitor ) return ((algVisitor<? extends T>)visitor).visitString(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class FalseContext extends Simple_expressionContext {
+		public TerminalNode FALSE() { return getToken(alg.FALSE, 0); }
+		public FalseContext(Simple_expressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).enterFalse(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).exitFalse(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof algVisitor ) return ((algVisitor<? extends T>)visitor).visitFalse(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class DoubleContext extends Simple_expressionContext {
+		public TerminalNode DOUBLE() { return getToken(alg.DOUBLE, 0); }
+		public DoubleContext(Simple_expressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).enterDouble(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).exitDouble(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof algVisitor ) return ((algVisitor<? extends T>)visitor).visitDouble(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class IntContext extends Simple_expressionContext {
+		public TerminalNode LITERAL_INT() { return getToken(alg.LITERAL_INT, 0); }
+		public IntContext(Simple_expressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).enterInt(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).exitInt(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof algVisitor ) return ((algVisitor<? extends T>)visitor).visitInt(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class FunctionInContext extends Simple_expressionContext {
+		public Function_invocationContext function_invocation() {
+			return getRuleContext(Function_invocationContext.class,0);
+		}
+		public FunctionInContext(Simple_expressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).enterFunctionIn(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof algListener ) ((algListener)listener).exitFunctionIn(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof algVisitor ) return ((algVisitor<? extends T>)visitor).visitFunctionIn(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -868,6 +1184,7 @@ public class alg extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
 			case 1:
+				_localctx = new IntContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(135);
@@ -875,6 +1192,7 @@ public class alg extends Parser {
 				}
 				break;
 			case 2:
+				_localctx = new NullContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(136);
@@ -882,6 +1200,7 @@ public class alg extends Parser {
 				}
 				break;
 			case 3:
+				_localctx = new VarContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(137);
@@ -889,6 +1208,7 @@ public class alg extends Parser {
 				}
 				break;
 			case 4:
+				_localctx = new DoubleContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(138);
@@ -896,6 +1216,7 @@ public class alg extends Parser {
 				}
 				break;
 			case 5:
+				_localctx = new StringContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
 				setState(139);
@@ -903,6 +1224,7 @@ public class alg extends Parser {
 				}
 				break;
 			case 6:
+				_localctx = new TrueContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
 				setState(140);
@@ -910,6 +1232,7 @@ public class alg extends Parser {
 				}
 				break;
 			case 7:
+				_localctx = new FalseContext(_localctx);
 				enterOuterAlt(_localctx, 7);
 				{
 				setState(141);
@@ -917,6 +1240,7 @@ public class alg extends Parser {
 				}
 				break;
 			case 8:
+				_localctx = new FunctionInContext(_localctx);
 				enterOuterAlt(_localctx, 8);
 				{
 				setState(142);

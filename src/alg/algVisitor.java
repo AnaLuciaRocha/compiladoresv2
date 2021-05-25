@@ -47,17 +47,124 @@ public interface algVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitType(alg.TypeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alg#expression}.
+	 * Visit a parse tree produced by the {@code SimpleExpr}
+	 * labeled alternative in {@link alg#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpression(alg.ExpressionContext ctx);
+	T visitSimpleExpr(alg.SimpleExprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alg#simple_expression}.
+	 * Visit a parse tree produced by the {@code PlusMinus}
+	 * labeled alternative in {@link alg#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSimple_expression(alg.Simple_expressionContext ctx);
+	T visitPlusMinus(alg.PlusMinusContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code IndexArr}
+	 * labeled alternative in {@link alg#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIndexArr(alg.IndexArrContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AndComparator}
+	 * labeled alternative in {@link alg#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAndComparator(alg.AndComparatorContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code OrComparator}
+	 * labeled alternative in {@link alg#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOrComparator(alg.OrComparatorContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ParenExpr}
+	 * labeled alternative in {@link alg#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParenExpr(alg.ParenExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Unary}
+	 * labeled alternative in {@link alg#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnary(alg.UnaryContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BinaryComparator}
+	 * labeled alternative in {@link alg#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBinaryComparator(alg.BinaryComparatorContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code MultDiv}
+	 * labeled alternative in {@link alg#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMultDiv(alg.MultDivContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Int}
+	 * labeled alternative in {@link alg#simple_expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInt(alg.IntContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Null}
+	 * labeled alternative in {@link alg#simple_expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNull(alg.NullContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Var}
+	 * labeled alternative in {@link alg#simple_expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVar(alg.VarContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Double}
+	 * labeled alternative in {@link alg#simple_expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDouble(alg.DoubleContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code String}
+	 * labeled alternative in {@link alg#simple_expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitString(alg.StringContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code True}
+	 * labeled alternative in {@link alg#simple_expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrue(alg.TrueContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code False}
+	 * labeled alternative in {@link alg#simple_expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFalse(alg.FalseContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FunctionIn}
+	 * labeled alternative in {@link alg#simple_expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionIn(alg.FunctionInContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link alg#index_pointer}.
 	 * @param ctx the parse tree
