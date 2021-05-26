@@ -1,4 +1,4 @@
-// Generated from /home/jay/IdeaProjects/compiladoresv2/src/alg.g4 by ANTLR 4.9.1
+// Generated from C:/Users/x1/OneDrive - Universidade do Algarve/LEI/06_Semestre/P2/src\alg.g4 by ANTLR 4.9.1
 package alg;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -28,29 +28,15 @@ public interface algListener extends ParseTreeListener {
 	 */
 	void exitDeclaration(alg.DeclarationContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code SimpleDeclaration}
-	 * labeled alternative in {@link alg#variable_declation}.
+	 * Enter a parse tree produced by {@link alg#variable_declation}.
 	 * @param ctx the parse tree
 	 */
-	void enterSimpleDeclaration(alg.SimpleDeclarationContext ctx);
+	void enterVariable_declation(alg.Variable_declationContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code SimpleDeclaration}
-	 * labeled alternative in {@link alg#variable_declation}.
+	 * Exit a parse tree produced by {@link alg#variable_declation}.
 	 * @param ctx the parse tree
 	 */
-	void exitSimpleDeclaration(alg.SimpleDeclarationContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code InitializationDeclaration}
-	 * labeled alternative in {@link alg#variable_declation}.
-	 * @param ctx the parse tree
-	 */
-	void enterInitializationDeclaration(alg.InitializationDeclarationContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code InitializationDeclaration}
-	 * labeled alternative in {@link alg#variable_declation}.
-	 * @param ctx the parse tree
-	 */
-	void exitInitializationDeclaration(alg.InitializationDeclarationContext ctx);
+	void exitVariable_declation(alg.Variable_declationContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link alg#simple_declaration}.
 	 * @param ctx the parse tree

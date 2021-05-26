@@ -1,7 +1,10 @@
 
-int alg(int z)
-{
+
+int x;
+float y;
 
 
-    leave;
+int alg(int x, <string> s) {
+    write(s);
+    LEAVE;
 }
