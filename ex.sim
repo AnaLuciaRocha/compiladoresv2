@@ -3,9 +3,7 @@ int x;
 float y;
 
 
-int alg(int x, float y) {
-    write();
-
+int alg(int x, <string> s) {
+    write(s);
     LEAVE;
 }
-

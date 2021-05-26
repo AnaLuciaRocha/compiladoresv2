@@ -9,7 +9,6 @@ public class Symbol {
     {
         INT,
         FLOAT,
-<<<<<<< HEAD
         BOOL,
         STRING,
         POINTER_INT,
@@ -17,10 +16,6 @@ public class Symbol {
         POINTER_FLOAT,
         POINTER_STRING,
         POINTER_VOID,
-=======
-        STRING,
-        BOOL,
->>>>>>> origin/TypeChecker-Jay
         VOID,
         ERR,
         NULL,
