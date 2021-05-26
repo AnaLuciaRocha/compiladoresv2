@@ -1,12 +1,14 @@
-
 <float> z;
 float y = z[1];
 int x;
 
 
 int alg(int x, <string> s) {
+    int w;
+    x == w;
+    x == y;  // cannot compare different types (ERROR)
     ?x;
     ?y;
-    ?z; // cannot extract pointer from pointer type (ERROR)
+    ?z;  // cannot extract pointer from pointer type (ERROR)
     LEAVE;
 }

@@ -5,6 +5,9 @@ int x;
 
 
 int alg(int x, <string> s) {
+    int w;
+    x == w;
+    x == y;
     ?x;
     ?y;
     ?z;
