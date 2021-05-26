@@ -1,8 +1,8 @@
 package com.company;
 
 import alg.TypeChecker;
-import alg.algLexer;
 import alg.alg;
+import alg.algLexer;
 
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
