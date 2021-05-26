@@ -192,17 +192,38 @@ public interface algVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunction_invocation(alg.Function_invocationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alg#function_invocation_special}.
+	 * Visit a parse tree produced by the {@code StdReadFunction}
+	 * labeled alternative in {@link alg#function_invocation_special}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFunction_invocation_special(alg.Function_invocation_specialContext ctx);
+	T visitStdReadFunction(alg.StdReadFunctionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SizeOfFunction}
+	 * labeled alternative in {@link alg#function_invocation_special}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSizeOfFunction(alg.SizeOfFunctionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code WriteFunction}
+	 * labeled alternative in {@link alg#function_invocation_special}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWriteFunction(alg.WriteFunctionContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link alg#function_declaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitFunction_declaration(alg.Function_declarationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link alg#main_function_declaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMain_function_declaration(alg.Main_function_declarationContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link alg#function_type}.
 	 * @param ctx the parse tree

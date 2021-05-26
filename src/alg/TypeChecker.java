@@ -87,24 +87,39 @@ public class TypeChecker extends algBaseListener {
     //Entra em uma declaração de uma função, define um novo scope  e um novo symbol para esta nova função.
     public void enterFunction_declaration(alg.Function_declarationContext ctx)
     {
-        FunctionSymbol f;
-        String functionName = ctx.INDENT().getText();
-
-        if(ctx.function_type() == null)
+        FunctionSymbol f = null;
+        String functionName = null;
+        if(ctx.INDENT() != null)
         {
-            return;
+            functionName = ctx.INDENT().getText();
+            String type = ctx.function_type().start.getText();
+            f = new FunctionSymbol(type,functionName);
+
+            if(ctx.function_type() == null)
+            {
+                return;
+            }
         }
-        String type = ctx.function_type().start.getText();
-        f = new FunctionSymbol(type,functionName);
+
+
+        if(ctx.INDENT() == null)
+        {
+            functionName = ctx.main_function_declaration().ALG().getText();
+            String type = ctx.main_function_declaration().INT(0).getText();
+            f = new FunctionSymbol(type, functionName);
+        }
+
+
 
         if(defineSymbol(ctx,f))
         {
-
-            for (alg.Simple_declarationContext terminalNode : ctx.arg(0).simple_declaration())
+            if(ctx.INDENT() != null)
             {
-                System.out.println();
+                for (alg.Simple_declarationContext terminalNode : ctx.arg(0).simple_declaration())
+                {
+                    System.out.println(terminalNode);
+                }
             }
-
 
 
             //para além de adicionarmos a função à tabela de símbolos, esta vai criar um novo enquadramento local

@@ -85,11 +85,15 @@ expression_list: expression | (COMMA expression)* | ;
 
 function_invocation : INDENT L_PAREN expression_list R_PAREN | function_invocation_special;
 
-function_invocation_special : AT  L_PAREN  R_PAREN
-                            | SIZEOF  L_PAREN expression R_PAREN
-                            | (WRITE | WRITELN) function_invocation ;
+function_invocation_special : AT  L_PAREN  R_PAREN                      # StdReadFunction
+                            | SIZEOF  L_PAREN expression R_PAREN        # SizeOfFunction
+                            | (WRITE | WRITELN) '(' expression_list ')' # WriteFunction
+                            ;
 
-function_declaration: (function_type |  {notifyErrorListeners("A function must have a type");}) INDENT L_PAREN arg* R_PAREN body ;
+function_declaration: ((function_type |  {notifyErrorListeners("A function must have a type");}) INDENT L_PAREN arg* R_PAREN |
+                        main_function_declaration ) body ;
+
+main_function_declaration : INT ALG '(' INT INDENT ',' '<' STRING '>' INDENT ')'; //todo
 
 function_type : VOID | type;
 
