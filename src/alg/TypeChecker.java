@@ -52,7 +52,6 @@ public class TypeChecker extends algBaseListener {
 
         String variableName = ctx.INDENT().getText();
         Symbol s = this.currentScope.resolve(variableName);
-        System.out.println("aa");
         if(s == null) {
             System.err.println("Undefined variable " + variableName + " in line " + ctx.INDENT().getSymbol().getLine());
             this.validated = false;
@@ -100,20 +99,19 @@ public class TypeChecker extends algBaseListener {
 
         if(defineSymbol(ctx,f))
         {
+
+            for (alg.Simple_declarationContext terminalNode : ctx.arg(0).simple_declaration())
+            {
+                System.out.println();
+            }
+
+
+
             //para além de adicionarmos a função à tabela de símbolos, esta vai criar um novo enquadramento local
             //isto tem que ser feito quando entramos, porque caso existam argumentos formais, estes devem já ser guardados
             //dentro do enquadramento local da função. É mais fácil fazer isto se o enquadramento já estiver criado.
             //Existem linguagens onde os argumentos formais são guardados num enquadramento à parte especial só para os argumentos.
             //mas não é este o caso aqui.
-
-
-                for (alg.Simple_declarationContext terminalNode : ctx.arg(0).simple_declaration())
-                {
-
-                }
-
-
-
             this.currentFunction = f;
             this.currentScope = new Scope(this.currentScope);
         }
@@ -131,9 +129,7 @@ public class TypeChecker extends algBaseListener {
             System.out.println("Argument: " + s.name + " Tipo: " + s.type);
         }
 
-
         //imprimir o enquadramento local, só para efeito de debug
-
         System.out.println("Local scope for function " + this.currentFunction.name + ": " + this.currentScope.toString());
         this.currentFunction = null;
 
@@ -341,18 +337,14 @@ public class TypeChecker extends algBaseListener {
         }
     }
 
-//    public void exitArg(alg.ArgContext ctx)
-//    {
-//
-//        for (alg.Simple_declarationContext terminalNode : ctx.simple_declaration()) {
-//           Symbol s = this.currentScope.resolve(terminalNode.getText());
-//           System.out.println(s.type);
-////            Symbol.PType type = exprType.get(terminalNode);
-////            terminalNode.type();
-////            Symbol s = new Symbol(type.toString(), terminalNode.getText());
-////            this.currentFunction.arguments.add(s);
-//        }
-//    }
+    public void exitArg(alg.ArgContext ctx)
+    {
+
+        for (alg.Simple_declarationContext terminalNode : ctx.simple_declaration()) {
+           Symbol s = this.currentScope.resolve(terminalNode.INDENT().get(0).getText());
+           this.currentFunction.arguments.add(s);
+        }
+    }
 
 
 
