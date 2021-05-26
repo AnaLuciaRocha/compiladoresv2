@@ -8,8 +8,7 @@ start: declaration+ EOF;
 declaration: variable_declation (SEMI_COLON | {notifyErrorListeners("Missing ';'");})
             | function_declaration;
 
-variable_declation: simple_declaration
-                    | initialization_declaration;
+variable_declation: simple_declaration #SimpleDeclaration| initialization_declaration #InitializationDeclaration;
 
 simple_declaration : type INDENT (COMMA INDENT)*; //int i,j
 
@@ -49,7 +48,6 @@ simple_expression : LITERAL_INT              #Int
                   | function_invocation      #FunctionIn;
 
 
-
 // must declare here to use it later
 index_pointer: expression L_BRACKET expression (R_BRACKET | {notifyErrorListeners("Missing ']'");});
 
@@ -67,11 +65,11 @@ function_invocation_special : AT  L_PAREN  R_PAREN                      # StdRea
                             ;
 
 function_declaration: ((function_type |  {notifyErrorListeners("A function must have a type");}) INDENT L_PAREN arg* R_PAREN |
-                        main_function_declaration )body ;
+                        main_function_declaration ) body ;
 
-main_function_declaration : INT ALG '(' INT INDENT ',' '<' STRING '>' INDENT ')';
+main_function_declaration : INT ALG '(' INT INDENT ',' '<' STRING '>' INDENT ')'; //todo
+
 function_type : VOID | type;
-
 
 arg: simple_declaration (COMMA simple_declaration)*;
 
@@ -84,6 +82,15 @@ block : L_CURVE_BRACKET (variable_declation SEMI_COLON)*  instructions+ ( R_CURV
 
 
 //3. Instructions
+//This is an example of left factorization getting fixed
+// The coment code is the one who wasn't left factored
+//instructions : expression SEMI_COLON
+//             | instruction_control SEMI_COLON
+//             | atribuition SEMI_COLON
+//             | instruction_conditional
+//             | cycle
+//             | sub_block ;
+
 instructions : (expression
              | instruction_control
              | atribuition )SEMI_COLON

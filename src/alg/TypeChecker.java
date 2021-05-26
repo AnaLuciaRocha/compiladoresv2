@@ -65,12 +65,12 @@ public class TypeChecker extends algBaseListener {
 
 
     //Saida de uma variavel. Retorna erro caso a variavel nao foi definida antes ou é utilizada como uma função.
-    public void exitVar(alg.VarContext ctx) {
+    public void exitVar(alg.VarContext ctx)
+    {
 
         String variableName = ctx.INDENT().getText();
         Symbol s = this.currentScope.resolve(variableName);
-        System.out.println("aa");
-        if (s == null) {
+        if(s == null) {
             System.err.println("Undefined variable " + variableName + " in line " + ctx.INDENT().getSymbol().getLine());
             this.semanticErrors++;
             exprType.put(ctx, Symbol.PType.ERR);
@@ -86,11 +86,6 @@ public class TypeChecker extends algBaseListener {
         exprType.put(ctx, s.type);
     }
 
-
-
-
-
-
     //Saida de uma simple_declaration, define os symbols iterando sobre a lista de indentificadores
     public void exitSimple_declaration(alg.Simple_declarationContext ctx) {
 
@@ -98,8 +93,8 @@ public class TypeChecker extends algBaseListener {
         for (TerminalNode terminalNode : ctx.INDENT()) {
             defineSymbol(ctx, new Symbol(ctx.type().start.getText(), terminalNode.getText())); //esta na tabela de simbolos
         }
-    }
 
+    }
 
     //Saida de uma initialization_declaration, define um symbol para a dada inicializacao
     public void exitInitialization_declaration(alg.Initialization_declarationContext ctx) {
@@ -109,39 +104,62 @@ public class TypeChecker extends algBaseListener {
 
 
     //Entra em uma declaração de uma função, define um novo scope  e um novo symbol para esta nova função.
-    public void enterFunction_declaration(alg.Function_declarationContext ctx) {
-        FunctionSymbol f;
-        String functionName = ctx.INDENT().getText();
-        if (ctx.function_type() == null) {
-            return;
-        }
-        String type = ctx.function_type().start.getText();
-        f = new FunctionSymbol(type, functionName);
+    public void enterFunction_declaration(alg.Function_declarationContext ctx)
+    {
+        FunctionSymbol f = null;
+        String functionName = null;
+        if(ctx.INDENT() != null)
+        {
+            functionName = ctx.INDENT().getText();
+            String type = ctx.function_type().start.getText();
+            f = new FunctionSymbol(type,functionName);
 
-        if (defineSymbol(ctx, f)) {
+            if(ctx.function_type() == null)
+            {
+                return;
+            }
+        }
+
+
+        if(ctx.INDENT() == null)
+        {
+            functionName = ctx.main_function_declaration().ALG().getText();
+            String type = ctx.main_function_declaration().INT(0).getText();
+            f = new FunctionSymbol(type, functionName);
+        }
+
+
+
+        if(defineSymbol(ctx,f))
+        {
+            if(ctx.INDENT() != null)
+            {
+                for (alg.Simple_declarationContext terminalNode : ctx.arg(0).simple_declaration())
+                {
+
+                }
+            }
+
+
             //para além de adicionarmos a função à tabela de símbolos, esta vai criar um novo enquadramento local
             //isto tem que ser feito quando entramos, porque caso existam argumentos formais, estes devem já ser guardados
             //dentro do enquadramento local da função. É mais fácil fazer isto se o enquadramento já estiver criado.
             //Existem linguagens onde os argumentos formais são guardados num enquadramento à parte especial só para os argumentos.
             //mas não é este o caso aqui.
-
-
-            for (alg.Simple_declarationContext terminalNode : ctx.arg(0).simple_declaration()) {
-
-            }
-
-
             this.currentFunction = f;
             this.currentScope = new Scope(this.currentScope);
         }
     }
 
-    public void exitFunction_declaration(alg.Function_declarationContext ctx) {
-        if (this.currentFunction == null) return;
+    public void exitFunction_declaration(alg.Function_declarationContext ctx)
+    {
+        if(this.currentFunction == null) return;
+
 
 
         //Print arguments
-        for (Symbol s : this.currentFunction.arguments) {
+        for (Symbol s : this.currentFunction.arguments)
+        {
             System.out.println("Argument: " + s.name + " Tipo: " + s.type);
         }
 
@@ -153,6 +171,37 @@ public class TypeChecker extends algBaseListener {
 
         //temos de sair do contexto local da função
         currentScope = currentScope.getParentScope();
+    }
+
+    public void exitMain_function_declaration(alg.Main_function_declarationContext ctx)
+    {
+
+
+//            if(ctx.INT(1) == null || ctx.STRING() == null)
+//            {
+//                exprType.put(ctx, Symbol.PType.ERR);
+//                System.err.println("Wrong arguments were passed to the main function");
+//                return;
+//            }
+//            Symbol s1 = new Symbol(ctx.INT(1).toString(), ctx.INDENT(0).getText());
+//            defineSymbol(ctx, s1);
+//
+//            Symbol s2 = new Symbol("POINTER_STRING", ctx.INDENT(1).getText());
+//            defineSymbol(ctx, s1);
+//
+//            this.currentFunction.arguments.add(s1);
+//            this.currentFunction.arguments.add(s2);
+
+        if(ctx.INT(1) == null)
+        {
+            exprType.put(ctx, Symbol.PType.ERR);
+            System.err.println("Wrong arguments were passed to the main function");
+            return;
+        }
+        Symbol s1 = new Symbol(ctx.INT(1).toString(), ctx.INDENT(0).getText());
+        defineSymbol(ctx, s1);
+
+        this.currentFunction.arguments.add(s1);
     }
 
     public void exitAtribuition(alg.AtribuitionContext ctx) {
@@ -217,27 +266,23 @@ public class TypeChecker extends algBaseListener {
         exprType.put(ctx, type);
     }
 
-
 //    expression: expression L_BRACKET expression R_BRACKET
-    public void exitIndexArr(alg.IndexArrContext ctx){
+    public void exitIndexArr(alg.IndexArrContext ctx) {
         Symbol.PType expr1 = exprType.get(ctx.expression(0));
         Symbol.PType expr2 = exprType.get(ctx.expression(1));
-        if(expr1 == Symbol.PType.ERR || expr2 == Symbol.PType.ERR)
-        {
+        if (expr1 == Symbol.PType.ERR || expr2 == Symbol.PType.ERR) {
             exprType.put(ctx, Symbol.PType.ERR);
             this.semanticErrors++;
         }
-        if( isPointerType(expr1) && expr1 != Symbol.PType.POINTER_VOID && expr2 == Symbol.PType.INT)
-        {
+        if (isPointerType(expr1) && expr1 != Symbol.PType.POINTER_VOID && expr2 == Symbol.PType.INT) {
             exprType.put(ctx, expr1);
-        }
-        else {
+        } else {
             exprType.put(ctx, Symbol.PType.ERR);
             System.err.println("Expected a boolean type in line " + ctx.start.getLine());
             this.semanticErrors++;
         }
-
     }
+
 
 
 
@@ -258,10 +303,12 @@ public class TypeChecker extends algBaseListener {
             return;
         }
 
-        if (ctx.PLUS() != null || ctx.MINUS() != null) {
-            if (type == Symbol.PType.INT) exprType.put(ctx, Symbol.PType.INT);
-            else if (type == Symbol.PType.FLOAT) exprType.put(ctx, Symbol.PType.FLOAT);
-            else {
+        if(ctx.PLUS() != null || ctx.MINUS() != null)
+        {
+            if(type == Symbol.PType.INT) exprType.put(ctx, Symbol.PType.INT);
+            else if(type == Symbol.PType.FLOAT) exprType.put(ctx, Symbol.PType.FLOAT);
+            else
+            {
                 System.err.println("Expected a INT or FLOAT type in line " + ctx.start.getLine());
                 exprType.put(ctx, Symbol.PType.ERR);
                 this.semanticErrors++;
@@ -270,52 +317,20 @@ public class TypeChecker extends algBaseListener {
         }
     }
 
-
-                //TODO
-//    //Entra em uma declaração de uma função, define um novo scope  e um novo symbol para esta nova função.
-//    public void enterFunction_declaration(alg.Function_declarationContext ctx)
-//    {
-//        FunctionSymbol f;
-//        String functionName = ctx.INDENT().getText();
-//
-//        if(ctx.function_type() == null)
-//        {
-//            return;
-//        }
-//        String type = ctx.function_type().start.getText();
-//        f = new FunctionSymbol(type,functionName);
-//
-//        if(defineSymbol(ctx,f))
-//        {
-//
-//            for (alg.Simple_declarationContext terminalNode : ctx.arg(0).simple_declaration())
-//            {
-//                System.out.println();
-//            }
-//
-//
-//
-//            //para além de adicionarmos a função à tabela de símbolos, esta vai criar um novo enquadramento local
-//            //isto tem que ser feito quando entramos, porque caso existam argumentos formais, estes devem já ser guardados
-//            //dentro do enquadramento local da função. É mais fácil fazer isto se o enquadramento já estiver criado.
-//            //Existem linguagens onde os argumentos formais são guardados num enquadramento à parte especial só para os argumentos.
-//            //mas não é este o caso aqui.
-//            this.currentFunction = f;
-//            this.currentScope = new Scope(this.currentScope);
-//        }
-//    }
-
-
-
-    public void exitMultDiv(alg.MultDivContext ctx) {
+    public void exitMultDiv(alg.MultDivContext ctx)
+    {
         Symbol.PType type1 = exprType.get(ctx.expression(0));
         Symbol.PType type2 = exprType.get(ctx.expression(1));
 
-        if (ctx.REMAIN() != null) {
-            if (type1 == Symbol.PType.INT && type2 == Symbol.PType.INT) {
+        if(ctx.REMAIN() != null)
+        {
+            if(type1 == Symbol.PType.INT && type2 == Symbol.PType.INT)
+            {
                 exprType.put(ctx, Symbol.PType.INT);
                 System.out.println("REMAINDER : INT");
-            } else {
+            }
+            else
+            {
                 System.err.println("Expected to have INT % INT but other type was given. Error in line: " + ctx.start.getLine());
                 exprType.put(ctx, Symbol.PType.ERR);
                 this.semanticErrors++;
@@ -324,14 +339,18 @@ public class TypeChecker extends algBaseListener {
 
         } else //Multiplication and Division
         {
-
-            if (type1 == Symbol.PType.INT && type2 == Symbol.PType.INT) {
+            if(type1 == Symbol.PType.INT && type2 == Symbol.PType.INT)
+            {
                 exprType.put(ctx, Symbol.PType.INT);
                 System.out.println("MULTIDIV: INT");
-            } else if ((type1 == Symbol.PType.FLOAT && type2 == Symbol.PType.INT) || (type2 == Symbol.PType.FLOAT && type1 == Symbol.PType.INT)) {
+            }
+            else if((type1 == Symbol.PType.FLOAT && type2 == Symbol.PType.INT) || (type2 == Symbol.PType.FLOAT && type1 == Symbol.PType.INT))
+            {
                 exprType.put(ctx, Symbol.PType.FLOAT);
                 System.out.println("MULTIDIV: FLOAT");
-            } else {
+            }
+            else
+            {
                 System.err.println("Expected an INT or FLOAT but other type was given. Error in line: " + ctx.start.getLine());
                 exprType.put(ctx, Symbol.PType.ERR);
                 this.semanticErrors++;
@@ -341,27 +360,36 @@ public class TypeChecker extends algBaseListener {
     }
 
 
-
-    public void exitBinaryComparator(alg.BinaryComparatorContext ctx) {
+    public 	void exitBinaryComparator(alg.BinaryComparatorContext ctx)
+    {
         Symbol.PType type1 = exprType.get(ctx.expression(0));
         Symbol.PType type2 = exprType.get(ctx.expression(1));
         boolean isNumeric1 = type1 == Symbol.PType.INT || type1 == Symbol.PType.FLOAT;
-        boolean isNumeric2 = type2 == Symbol.PType.INT || type2 == Symbol.PType.FLOAT;
+        boolean isNumeric2  = type2 == Symbol.PType.INT || type2 == Symbol.PType.FLOAT;
         boolean isPrimitive = type1 != Symbol.PType.ERR && type1 != Symbol.PType.NULL && type1 != Symbol.PType.VOID;
 
 
-        if (ctx.IS_EQUAL() != null || ctx.DIFERENT() != null) {
-            if (isPrimitive && type1 == type2) {
+        if(ctx.IS_EQUAL() != null || ctx.DIFERENT() != null)
+        {
+            if(isPrimitive && type1 == type2)
+            {
                 exprType.put(ctx, Symbol.PType.BOOL);
-            } else {
+            }
+            else
+            {
                 System.err.println("Expected primitive values. Error in line: " + ctx.start.getLine());
                 exprType.put(ctx, Symbol.PType.ERR);
                 this.semanticErrors++;
             }
-        } else {
-            if (isNumeric1 && isNumeric2) {
+        }
+        else
+        {
+            if(isNumeric1 && isNumeric2)
+            {
                 exprType.put(ctx, Symbol.PType.BOOL);
-            } else {
+            }
+            else
+            {
                 System.err.println("Expected an INT or FLOAT but other type was given. Error in line: " + ctx.start.getLine());
                 exprType.put(ctx, Symbol.PType.ERR);
                 this.semanticErrors++;
@@ -370,32 +398,21 @@ public class TypeChecker extends algBaseListener {
         }
     }
 
-              
-    public void exitAndComparator(alg.AndComparatorContext ctx) {
+    public void exitAndComparator(alg.AndComparatorContext ctx)
+    {
         Symbol.PType type1 = exprType.get(ctx.expression(0));
         Symbol.PType type2 = exprType.get(ctx.expression(1));
-        if (type1 == Symbol.PType.BOOL && type1 == type2) {
+        if(type1 == Symbol.PType.BOOL && type1 == type2)
+        {
             exprType.put(ctx, Symbol.PType.BOOL);
-        } else {
+        }
+        else
+        {
             System.err.println("Expected two BOOL but other type was given. Error in line: " + ctx.start.getLine());
             exprType.put(ctx, Symbol.PType.ERR);
             this.semanticErrors++;
         }
     }
-
-
-//    public void exitArg(alg.ArgContext ctx)
-//    {
-//
-//        for (alg.Simple_declarationContext terminalNode : ctx.simple_declaration()) {
-//           Symbol s = this.currentScope.resolve(terminalNode.getText());
-//           System.out.println(s.type);
-////            Symbol.PType type = exprType.get(terminalNode);
-////            terminalNode.type();
-////            Symbol s = new Symbol(type.toString(), terminalNode.getText());
-////            this.currentFunction.arguments.add(s);
-//        }
-//    }
 
 
     // function_invocation_special -> (WRITE | WRITELN) '(' expression_list ')'
@@ -407,7 +424,7 @@ public class TypeChecker extends algBaseListener {
         }
 
     }
-              
+
 
 
     public void exitOrComparator(alg.OrComparatorContext ctx)
