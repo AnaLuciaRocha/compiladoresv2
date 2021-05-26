@@ -136,7 +136,7 @@ public class TypeChecker extends algBaseListener {
             {
                 for (alg.Simple_declarationContext terminalNode : ctx.arg(0).simple_declaration())
                 {
-                    System.out.println(terminalNode);
+
                 }
             }
 
@@ -175,8 +175,33 @@ public class TypeChecker extends algBaseListener {
 
     public void exitMain_function_declaration(alg.Main_function_declarationContext ctx)
     {
-            Symbol s = this.currentScope.resolve(terminalNode.INDENT().get(0).getText());
-            this.currentFunction.arguments.add(s);
+
+
+//            if(ctx.INT(1) == null || ctx.STRING() == null)
+//            {
+//                exprType.put(ctx, Symbol.PType.ERR);
+//                System.err.println("Wrong arguments were passed to the main function");
+//                return;
+//            }
+//            Symbol s1 = new Symbol(ctx.INT(1).toString(), ctx.INDENT(0).getText());
+//            defineSymbol(ctx, s1);
+//
+//            Symbol s2 = new Symbol("POINTER_STRING", ctx.INDENT(1).getText());
+//            defineSymbol(ctx, s1);
+//
+//            this.currentFunction.arguments.add(s1);
+//            this.currentFunction.arguments.add(s2);
+
+        if(ctx.INT(1) == null)
+        {
+            exprType.put(ctx, Symbol.PType.ERR);
+            System.err.println("Wrong arguments were passed to the main function");
+            return;
+        }
+        Symbol s1 = new Symbol(ctx.INT(1).toString(), ctx.INDENT(0).getText());
+        defineSymbol(ctx, s1);
+
+        this.currentFunction.arguments.add(s1);
     }
 
     public void exitAtribuition(alg.AtribuitionContext ctx) {
