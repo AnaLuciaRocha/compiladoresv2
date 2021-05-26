@@ -7,6 +7,6 @@ int x;
 int alg(int x, <string> s) {
     ?x;
     ?y;
-    ?z;
+    ?z; // cannot extract pointer from pointer type (ERROR)
     LEAVE;
 }

@@ -60,6 +60,32 @@ public class TypeChecker extends algBaseListener {
         return result;
     }
 
+//    /**
+//     * Set symbol type for class symbol considering pointer types
+//     * bad practice, but easy way to do it
+//     * @param symbol
+//     * @return string
+//     */
+//    //int x
+//    private Symbol.PType getSymbolType(String symbol ){
+//        Symbol.PType result = symbol;
+//        if(symbol.equals("<string>")) {
+//            result = "POINTER_STRING";
+//        }
+//        else if(symbol.equals("<float>")) {
+//            result = "POINTER_FLOAT";
+//        }
+//        else if(symbol.equals("<int>")) {
+//            result = "POINTER_INT";
+//        }
+//        else if(symbol.equals("<bool>")) {
+//            result = "POINTER_BOOL";
+//        }
+//        else if(symbol.equals("<void>")) {
+//            result = "POINTER_VOID";
+//        }
+//        return result;
+//    }
     /**
      * Returns if symbols is a pointer or not
      * @param symbol
@@ -121,7 +147,6 @@ public class TypeChecker extends algBaseListener {
 
         String variableName = ctx.INDENT().getText();
         Symbol s = this.currentScope.resolve(variableName);
-        System.out.println("aa");
         if (s == null) {
             System.err.println("Undefined variable " + variableName + " in line " + ctx.INDENT().getSymbol().getLine());
             this.semanticErrors++;
@@ -342,17 +367,47 @@ public class TypeChecker extends algBaseListener {
             }
         }
         if(ctx.QUESTION() != null){ //Pointer Extraction
-            if (ctx.expression().start.getType() == algLexer.INDENT  && ctx.expression() instanceof alg.IndexArrContext &&
-            !isPointerType(type) && isPrimitiveType(type)) {
-                System.out.println("teste pointeroierf?????");
-                exprType.put(ctx, Symbol.PType.INT);
+            if ((ctx.expression().start.getType() == algLexer.INDENT  || (ctx.expression() instanceof alg.IndexArrContext))
+                    && !isPointerType(type) && isPrimitiveType(type)) {
+                exprType.put(ctx, primitiveToPointertype(type));
             }
             else {
-                System.err.println("Expected blablablab " + ctx.start.getLine());
+                System.err.println("Mismatched type for pointer extraction in line: " + ctx.start.getLine() );
                 exprType.put(ctx, Symbol.PType.ERR);
                 this.semanticErrors++;
             }
         }
+    }
+
+
+//    /**
+//     *
+//     * @param type
+//     * @param expression_ctx
+//     * @return
+//     */
+//    private boolean atribution_leftSide(int type, alg.alg.ExpressionContext expression_ctx){
+//        return  (type == algLexer.INDENT || expression_ctx instanceof  alg.IndexArrContext);
+//    }
+
+    /**
+     * Transforms primitive type into pointer type
+     * @param primitive type (int, bool, float, null, void)
+     * @return pointer type
+     */
+    private Symbol.PType primitiveToPointertype(Symbol.PType primitive){
+        Symbol.PType result = primitive;
+        if(primitive == Symbol.PType.INT)
+            result = Symbol.PType.POINTER_INT;
+        else if (primitive == Symbol.PType.BOOL)
+            result = Symbol.PType.POINTER_BOOL;
+        else if (primitive == Symbol.PType.FLOAT)
+            result = Symbol.PType.POINTER_FLOAT;
+        else if (primitive == Symbol.PType.NULL)
+            result = Symbol.PType.POINTER_VOID;
+
+        return result;
+
     }
 
 
