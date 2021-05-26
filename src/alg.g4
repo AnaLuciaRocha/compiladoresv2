@@ -36,33 +36,6 @@ expression:
             | expression AND expression                   #AndComparator//Binary AND
             | expression OR expression                    #OrComparator//Binary OR
             ;
-//Left recursion fixed
-//expression: expression2 expression_aux;
-//expression_aux: op1 expression2 expression_aux | ;
-//expression2: expression3 expression_aux2;
-//expression_aux2: op2 expression3 expression_aux2 | ;
-//expression3: expression4 expression_aux3;
-//expression_aux3: op3 expression4 expression_aux3 | ;expression
-//expression4: expression5 expression_aux4;
-//expression_aux4: op4 expression5 expression_aux4 | ;
-//expression5: expression6 expression_aux5;
-//expression_aux5: op5 expression6 expression_aux5 | ;
-//
-//expression6: expression7 expression_aux6;
-//expression_aux6: L_BRACKET expression R_BRACKET expression_aux6 | ;
-//
-//expression7:
-//             simple_expression
-//            | L_PAREN expression R_PAREN
-//            | (PLUS | MINUS | NOT | QUESTION) expression
-//            ;
-//
-//
-//op1: (LESS_THAN | GREATER_THAN | LESS_EQUAL_THAN | GREATER_EQUAL_THAN | IS_EQUAL | DIFERENT);
-//op2: (PLUS | MINUS);
-//op3: (MULT | DIV | REMAIN);
-//op4: AND;
-//op5: OR;
 
 
 simple_expression : LITERAL_INT              #Int
@@ -72,13 +45,14 @@ simple_expression : LITERAL_INT              #Int
                   | LITERAL_STRING           #String
                   | TRUE                     #True
                   | FALSE                    #False
-                  | function_invocation     #FunctionIn;
+                  | function_invocation      #FunctionIn;
 
 
 // must declare here to use it later
 index_pointer: expression L_BRACKET expression (R_BRACKET | {notifyErrorListeners("Missing ']'");});
 
-expression_list: expression | (COMMA expression)* | ;
+expression_list: expression (COMMA expression)*
+                | ;
 
 
 //2. Functions
@@ -96,7 +70,6 @@ function_declaration: ((function_type |  {notifyErrorListeners("A function must 
 main_function_declaration : INT ALG '(' INT INDENT ',' '<' STRING '>' INDENT ')'; //todo
 
 function_type : VOID | type;
-
 
 arg: simple_declaration (COMMA simple_declaration)*;
 
