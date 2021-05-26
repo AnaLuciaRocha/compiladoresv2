@@ -22,7 +22,7 @@ type :
     | FLOAT
     | STRING
     | NULL
-    | LESS_THAN  type  GREATER_THAN ;
+    | LESS_THAN  type  GREATER_THAN ; //<type>
 
 // Expressions Left Recursion
 expression:

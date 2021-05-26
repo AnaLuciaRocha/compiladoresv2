@@ -19,7 +19,6 @@ public class Symbol {
         VOID,
         ERR,
         NULL,
-        POINTER,
     }
 
     public PType type;
