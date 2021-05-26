@@ -1,4 +1,4 @@
-// Generated from C:/Users/x1/OneDrive - Universidade do Algarve/LEI/06_Semestre/P2/src\alg.g4 by ANTLR 4.9.1
+// Generated from /home/jay/IdeaProjects/compiladoresv2/src/alg.g4 by ANTLR 4.9.1
 package alg;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -40,13 +40,25 @@ public class algBaseListener implements algListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVariable_declation(alg.Variable_declationContext ctx) { }
+	@Override public void enterSimpleDeclaration(alg.SimpleDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVariable_declation(alg.Variable_declationContext ctx) { }
+	@Override public void exitSimpleDeclaration(alg.SimpleDeclarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInitializationDeclaration(alg.InitializationDeclarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInitializationDeclaration(alg.InitializationDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

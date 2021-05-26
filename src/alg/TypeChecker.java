@@ -173,6 +173,12 @@ public class TypeChecker extends algBaseListener {
         currentScope = currentScope.getParentScope();
     }
 
+    public void exitMain_function_declaration(alg.Main_function_declarationContext ctx)
+    {
+            Symbol s = this.currentScope.resolve(terminalNode.INDENT().get(0).getText());
+            this.currentFunction.arguments.add(s);
+    }
+
     public void exitAtribuition(alg.AtribuitionContext ctx) {
         String variableName = ctx.INDENT().getText();
         Symbol s = this.currentScope.resolve(variableName);

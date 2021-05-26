@@ -6,5 +6,5 @@ float y;
 
 int alg(int x, <string> s) {
     write(s);
-    LEAVE;
+    leave;
 }
