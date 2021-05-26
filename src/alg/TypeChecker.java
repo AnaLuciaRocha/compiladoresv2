@@ -341,16 +341,18 @@ public class TypeChecker extends algBaseListener {
                 this.semanticErrors++;
             }
         }
-//        if(ctx.QUESTION() != null){
-//            if (ctx.expression().start.getType() == algLexer.INDENT  && ctx.expression() instanceof alg.IndexArrContext &&
-//            !isPointerType(type) && isPrimitiveType(type))
-//                exprType.put(ctx, Symbol.PType.INT);
-//            else {
-//                System.err.println("Expected blablablab " + ctx.start.getLine());
-//                exprType.put(ctx, Symbol.PType.ERR);
-//                this.semanticErrors++;
-//            }
-//        }
+        if(ctx.QUESTION() != null){ //Pointer Extraction
+            if (ctx.expression().start.getType() == algLexer.INDENT  && ctx.expression() instanceof alg.IndexArrContext &&
+            !isPointerType(type) && isPrimitiveType(type)) {
+                System.out.println("teste pointeroierf?????");
+                exprType.put(ctx, Symbol.PType.INT);
+            }
+            else {
+                System.err.println("Expected blablablab " + ctx.start.getLine());
+                exprType.put(ctx, Symbol.PType.ERR);
+                this.semanticErrors++;
+            }
+        }
     }
 
 
