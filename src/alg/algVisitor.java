@@ -48,7 +48,7 @@ public interface algVisitor<T> extends ParseTreeVisitor<T> {
 	T visitType(alg.TypeContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code SimpleExpr}
-	 * labeled alternative in {@link alg#expression}.
+
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -164,6 +164,7 @@ public interface algVisitor<T> extends ParseTreeVisitor<T> {
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
+
 	T visitFunctionIn(alg.FunctionInContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link alg#index_pointer}.
