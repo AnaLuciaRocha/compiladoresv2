@@ -1,4 +1,4 @@
-// Generated from /home/jay/IdeaProjects/compiladoresv2/src/alg.g4 by ANTLR 4.9.1
+// Generated from C:/Users/x1/OneDrive - Universidade do Algarve/LEI/06_Semestre/P2/src\alg.g4 by ANTLR 4.9.1
 package alg;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -139,12 +139,12 @@ public interface algVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVar(alg.VarContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Double}
+	 * Visit a parse tree produced by the {@code Float}
 	 * labeled alternative in {@link alg#simple_expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDouble(alg.DoubleContext ctx);
+	T visitFloat(alg.FloatContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code String}
 	 * labeled alternative in {@link alg#simple_expression}.

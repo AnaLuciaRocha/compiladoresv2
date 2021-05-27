@@ -1,4 +1,4 @@
-// Generated from /home/jay/IdeaProjects/compiladoresv2/src/alg.g4 by ANTLR 4.9.1
+// Generated from C:/Users/x1/OneDrive - Universidade do Algarve/LEI/06_Semestre/P2/src\alg.g4 by ANTLR 4.9.1
 package alg;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -244,13 +244,13 @@ public class algBaseListener implements algListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDouble(alg.DoubleContext ctx) { }
+	@Override public void enterFloat(alg.FloatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDouble(alg.DoubleContext ctx) { }
+	@Override public void exitFloat(alg.FloatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

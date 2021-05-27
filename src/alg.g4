@@ -41,7 +41,7 @@ expression:
 simple_expression : LITERAL_INT              #Int
                   | NULL                     #Null
                   | INDENT                   #Var
-                  | DOUBLE                   #Double
+                  | LITERAL_FLOAT            #Float
                   | LITERAL_STRING           #String
                   | TRUE                     #True
                   | FALSE                    #False

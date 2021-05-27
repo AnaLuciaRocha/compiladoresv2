@@ -6,6 +6,7 @@ int x;
 
 int alg(int x, <string> s) {
     int w;
+    x=2;
     x == w;
     x == y;
     ?x;

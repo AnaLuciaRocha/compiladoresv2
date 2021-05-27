@@ -1,4 +1,4 @@
-// Generated from /home/jay/IdeaProjects/compiladoresv2/src/alg.g4 by ANTLR 4.9.1
+// Generated from C:/Users/x1/OneDrive - Universidade do Algarve/LEI/06_Semestre/P2/src\alg.g4 by ANTLR 4.9.1
 package alg;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -226,17 +226,17 @@ public interface algListener extends ParseTreeListener {
 	 */
 	void exitVar(alg.VarContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Double}
+	 * Enter a parse tree produced by the {@code Float}
 	 * labeled alternative in {@link alg#simple_expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterDouble(alg.DoubleContext ctx);
+	void enterFloat(alg.FloatContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Double}
+	 * Exit a parse tree produced by the {@code Float}
 	 * labeled alternative in {@link alg#simple_expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitDouble(alg.DoubleContext ctx);
+	void exitFloat(alg.FloatContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code String}
 	 * labeled alternative in {@link alg#simple_expression}.

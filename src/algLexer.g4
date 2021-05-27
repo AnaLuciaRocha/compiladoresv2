@@ -45,7 +45,7 @@ INDENT              :  ([a-zA-Z] | [\u0080-\u00FF])([a-zA-Z0-9_] | [\u0080-\u00F
 
 // 6. Literais
 LITERAL_INT         : ([1-9][0-9]*) | '0';
-DOUBLE              : LITERAL_INT ('.' [0-9]+)? ([eE] [+-]? LITERAL_INT)?;
+LITERAL_FLOAT       : LITERAL_INT ('.' [0-9]+)? ([eE] [+-]? LITERAL_INT)?;
 //LITERAL_STRING      : [\u0027] (~[\u0000]* ~([~\u0027])+ ('~'['])?)* [\u0027];
 LITERAL_STRING      : '\''  ('~'~[\u0000] | ~[~\u0000])*? '\''; //non greedy - match the least amount of data while allowing the remainder of the regex to match.
 
