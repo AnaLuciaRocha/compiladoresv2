@@ -128,17 +128,6 @@ public class TypeChecker extends algBaseListener {
 
     }
 
-    /**
-     *Check if is primitive type (everything excepts void)
-     * @param symbol
-     * @return
-     */
-    private boolean isPrimitiveType(Symbol.PType symbol)
-    {
-        return symbol != Symbol.PType.VOID;
-//        return !isPointerType(symbol) && symbol != Symbol.PType.VOID;
-
-    }
 
     // ******************************************************
     // *******************  START   *******************
@@ -451,23 +440,64 @@ public class TypeChecker extends algBaseListener {
             if (type1 == Symbol.PType.INT && type2 == Symbol.PType.INT) {
                 exprType.put(ctx, Symbol.PType.INT);
 
-                System.out.println("MULTIDIV: INT");
+//                System.out.println("MULTIDIV: INT");
             } else if ((type1 == Symbol.PType.FLOAT && type2 == Symbol.PType.INT) || (type2 == Symbol.PType.FLOAT && type1 == Symbol.PType.INT)) {
                 exprType.put(ctx, Symbol.PType.FLOAT);
-                System.out.println("MULTIDIV: FLOAT");
+//                System.out.println("MULTIDIV: FLOAT");
             } else {
-
                 System.err.println("Expected an INT or FLOAT but other type was given. Error in line: " + ctx.start.getLine());
                 exprType.put(ctx, Symbol.PType.ERR);
                 this.semanticErrors++;
-
             }
         }
     }
 
 
-// TODO jay is going to do it
+
 // expression (PLUS | MINUS) expression
+    public void exitPlusMinus(alg.PlusMinusContext ctx) {
+        Symbol.PType type1 = exprType.get(ctx.expression(0));
+        Symbol.PType type2 = exprType.get(ctx.expression(1));
+        if (type1 == Symbol.PType.ERR || type2 == Symbol.PType.ERR) {
+            exprType.put(ctx, Symbol.PType.ERR);
+            return;
+        }
+        if(isNumericType(type1) && isNumericType(type2)){
+            if (type1 == Symbol.PType.INT && type2 == Symbol.PType.INT) {
+                exprType.put(ctx, Symbol.PType.INT);
+            } else if ((type1 == Symbol.PType.FLOAT && type2 == Symbol.PType.INT) || (type2 == Symbol.PType.FLOAT && type1 == Symbol.PType.INT)) {
+                exprType.put(ctx, Symbol.PType.FLOAT);
+            } else {
+                System.err.println("Expected an INT or FLOAT but other type was given. Error in line: " + ctx.start.getLine());
+                exprType.put(ctx, Symbol.PType.ERR);
+                this.semanticErrors++;
+            }
+        }
+        else if (isPointerType(type1) && type2== Symbol.PType.INT){
+            if(isEmptyPointerType(type1)){
+                System.err.println("Cannot add/subtract Array position with VOID type. Error in line: " + ctx.start.getLine());
+                exprType.put(ctx, Symbol.PType.ERR);
+                this.semanticErrors++;
+            }
+            else {
+                exprType.put(ctx, type1);
+            }
+        }
+        else{
+            if( type2 != Symbol.PType.INT){
+                System.err.println("Cannot add/subtract Array position with other types! Should be INT. Error in line: " + ctx.start.getLine());
+                exprType.put(ctx, Symbol.PType.ERR);
+                this.semanticErrors++;
+
+            }
+            else {
+                System.err.println("We only add/subtract to number types (int or float) or array types. Error in line: " + ctx.start.getLine());
+                exprType.put(ctx, Symbol.PType.ERR);
+                this.semanticErrors++;
+            }
+        }
+    }
+
 
 
     //    /**
