@@ -62,6 +62,7 @@ public class TypeChecker extends algBaseListener {
         return result;
     }
 
+
     /**
      * Returns if symbols is a pointer or not
      *
@@ -420,19 +421,10 @@ public class TypeChecker extends algBaseListener {
                 this.semanticErrors++;
             }
         }
-//        if(ctx.QUESTION() != null){
-//            if (ctx.expression().start.getType() == algLexer.INDENT  && ctx.expression() instanceof alg.IndexArrContext &&
-//            !isPointerType(type) && isPrimitiveType(type))
-//                exprType.put(ctx, Symbol.PType.INT);
-//            else {
-//                System.err.println("Expected blablablab " + ctx.start.getLine());
-//                exprType.put(ctx, Symbol.PType.ERR);
-//                this.semanticErrors++;
-//            }
-//        }
     }
-//TODO must check type uppercast and downcast
 
+
+//TODO must check type uppercast and downcast
 
     //    expression: expression (MULT | DIV | REMAIN) expression
     public void exitMultDiv(alg.MultDivContext ctx) {
@@ -645,15 +637,13 @@ public class TypeChecker extends algBaseListener {
             exprType.put(ctx, Symbol.PType.ERR);
             return;
         }
-        if(s.type ==  expresssion_type)
-        if (s instanceof FunctionSymbol) {
-            System.err.println("Using function symbol " + variableName + " as variable in line " + ctx.INDENT().getSymbol().getLine());
+        if(expresssion_type == Symbol.PType.VOID || !s.isConvertible(expresssion_type)){
+            System.err.println("Cannot assign  " + variableName + " as variable in line " + ctx.INDENT().getSymbol().getLine());
             this.semanticErrors++;
             exprType.put(ctx, Symbol.PType.ERR);
             return;
         }
-
-        exprType.put(ctx, s.type);
+        exprType.put(ctx, s.type); // TODO i'm not sure about add this one. acjo qiue sim, porque podemos inicialziar uma varial e atribuir logo
     }
 
 

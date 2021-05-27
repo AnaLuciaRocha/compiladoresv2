@@ -55,11 +55,15 @@ public class Symbol {
         return this.type.toString().contains("POINTER");
     }
 
+    /**
+     * Check if a Symbol is convertible to other Symbol
+     * @param t2
+     * @return boolean
+     */
     public boolean isConvertible(Symbol.PType t2)
     {
         Symbol.PType t = this.type;
         boolean result;
-
         if(t == t2)
             result = true;
         else if(t == PType.INT && t2 == PType.FLOAT)
