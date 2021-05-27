@@ -21,8 +21,8 @@ public class alg extends Parser {
 		FALSE=10, WHILE=11, DO=12, FINALLY=13, LEAVE=14, RESTART=15, RETURN=16, 
 		IF=17, THEN=18, ELSE=19, WRITE=20, WRITELN=21, SPACES=22, COMMENT_E=23, 
 		COMMENT_O=24, COMMA=25, SEMI_COLON=26, L_PAREN=27, R_PAREN=28, INDENT=29, 
-		LITERAL_INT=30, DOUBLE=31, LITERAL_STRING=32, PLUS=33, MINUS=34, MULT=35, 
-		DIV=36, REMAIN=37, L_BRACKET=38, R_BRACKET=39, QUESTION=40, LESS_THAN=41, 
+		LITERAL_INT=30, LITERAL_FLOAT=31, LITERAL_STRING=32, PLUS=33, MINUS=34, 
+		MULT=35, DIV=36, REMAIN=37, L_BRACKET=38, R_BRACKET=39, QUESTION=40, LESS_THAN=41, 
 		GREATER_THAN=42, GREATER_EQUAL_THAN=43, LESS_EQUAL_THAN=44, IS_EQUAL=45, 
 		EQUAL=46, DIFERENT=47, NOT=48, AND=49, OR=50, MUCH_BIGGER_THAN=51, AT=52, 
 		L_CURVE_BRACKET=53, R_CURVE_BRACKET=54, LITERAL_FLOAT=55;
@@ -65,7 +65,7 @@ public class alg extends Parser {
 			"TRUE", "FALSE", "WHILE", "DO", "FINALLY", "LEAVE", "RESTART", "RETURN", 
 			"IF", "THEN", "ELSE", "WRITE", "WRITELN", "SPACES", "COMMENT_E", "COMMENT_O", 
 			"COMMA", "SEMI_COLON", "L_PAREN", "R_PAREN", "INDENT", "LITERAL_INT", 
-			"DOUBLE", "LITERAL_STRING", "PLUS", "MINUS", "MULT", "DIV", "REMAIN", 
+			"LITERAL_FLOAT", "LITERAL_STRING", "PLUS", "MINUS", "MULT", "DIV", "REMAIN", 
 			"L_BRACKET", "R_BRACKET", "QUESTION", "LESS_THAN", "GREATER_THAN", "GREATER_EQUAL_THAN", 
 			"LESS_EQUAL_THAN", "IS_EQUAL", "EQUAL", "DIFERENT", "NOT", "AND", "OR", 
 			"MUCH_BIGGER_THAN", "AT", "L_CURVE_BRACKET", "R_CURVE_BRACKET", "LITERAL_FLOAT"
@@ -484,6 +484,9 @@ public class alg extends Parser {
 			case L_PAREN:
 			case INDENT:
 			case LITERAL_INT:
+
+			case LITERAL_FLOAT:
+
 			case LITERAL_STRING:
 			case PLUS:
 			case MINUS:
@@ -869,6 +872,9 @@ public class alg extends Parser {
 			case WRITELN:
 			case INDENT:
 			case LITERAL_INT:
+
+			case LITERAL_FLOAT:
+
 			case LITERAL_STRING:
 			case AT:
 			case LITERAL_FLOAT:
@@ -1400,6 +1406,9 @@ public class alg extends Parser {
 			case L_PAREN:
 			case INDENT:
 			case LITERAL_INT:
+
+			case LITERAL_FLOAT:
+
 			case LITERAL_STRING:
 			case PLUS:
 			case MINUS:
@@ -2345,6 +2354,8 @@ public class alg extends Parser {
 			case L_PAREN:
 			case INDENT:
 			case LITERAL_INT:
+
+			case LITERAL_FLOAT:
 			case LITERAL_STRING:
 			case PLUS:
 			case MINUS:
@@ -2480,6 +2491,8 @@ public class alg extends Parser {
 				case L_PAREN:
 				case INDENT:
 				case LITERAL_INT:
+
+				case LITERAL_FLOAT:
 				case LITERAL_STRING:
 				case PLUS:
 				case MINUS:
@@ -2769,7 +2782,8 @@ public class alg extends Parser {
 			setState(309);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << SIZEOF) | (1L << NULL) | (1L << TRUE) | (1L << FALSE) | (1L << WHILE) | (1L << LEAVE) | (1L << RESTART) | (1L << RETURN) | (1L << IF) | (1L << WRITE) | (1L << WRITELN) | (1L << L_PAREN) | (1L << INDENT) | (1L << LITERAL_INT) | (1L << LITERAL_STRING) | (1L << PLUS) | (1L << MINUS) | (1L << QUESTION) | (1L << NOT) | (1L << AT) | (1L << L_CURVE_BRACKET) | (1L << LITERAL_FLOAT))) != 0)) {
+
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << SIZEOF) | (1L << NULL) | (1L << TRUE) | (1L << FALSE) | (1L << WHILE) | (1L << LEAVE) | (1L << RESTART) | (1L << RETURN) | (1L << IF) | (1L << WRITE) | (1L << WRITELN) | (1L << L_PAREN) | (1L << INDENT) | (1L << LITERAL_INT) | (1L << LITERAL_FLOAT) | (1L << LITERAL_STRING) | (1L << PLUS) | (1L << MINUS) | (1L << QUESTION) | (1L << NOT) | (1L << AT) | (1L << L_CURVE_BRACKET))) != 0)) {
 				{
 				{
 				setState(306);
