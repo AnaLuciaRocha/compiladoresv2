@@ -50,10 +50,15 @@ public class Symbol {
         return name + ":" + this.type;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isPointerType()
     {
         return this.type.toString().contains("POINTER");
     }
+
 
     /**
      * Check if a Symbol is convertible to other Symbol
