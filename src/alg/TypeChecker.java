@@ -8,6 +8,8 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.beans.Expression;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -103,10 +105,12 @@ public class TypeChecker extends algBaseListener {
         if (globalScope.resolve("alg") != null)
             System.out.println(this.currentScope.toString());
         else
+        {
             System.err.println("Missing principal function 'alg'");
             this.semanticErrors++;
         }
-    }
+}
+
 
 
 
@@ -220,11 +224,10 @@ public class TypeChecker extends algBaseListener {
     {
         if(this.currentFunction == null) return;
 
-
         //Print arguments
         for (Symbol s : this.currentFunction.arguments)
         {
-            System.out.println("Argument: " + s.name + " Tipo: " + s.type);
+
         }
 
 
@@ -241,31 +244,21 @@ public class TypeChecker extends algBaseListener {
     {
 
 
-//            if(ctx.INT(1) == null || ctx.STRING() == null)
-//            {
-//                exprType.put(ctx, Symbol.PType.ERR);
-//                System.err.println("Wrong arguments were passed to the main function");
-//                return;
-//            }
-//            Symbol s1 = new Symbol(ctx.INT(1).toString(), ctx.INDENT(0).getText());
-//            defineSymbol(ctx, s1);
-//
-//            Symbol s2 = new Symbol("POINTER_STRING", ctx.INDENT(1).getText());
-//            defineSymbol(ctx, s1);
-//
-//            this.currentFunction.arguments.add(s1);
-//            this.currentFunction.arguments.add(s2);
+            if(ctx.INT(1) == null || ctx.STRING() == null)
+            {
+                exprType.put(ctx, Symbol.PType.ERR);
+                System.err.println("Wrong arguments were passed to the main function");
+                return;
+            }
+            Symbol s1 = new Symbol(ctx.INT(1).toString(), ctx.INDENT(0).getText());
+            defineSymbol(ctx, s1);
 
-        if(ctx.INT(1) == null)
-        {
-            exprType.put(ctx, Symbol.PType.ERR);
-            System.err.println("Wrong arguments were passed to the main function");
-            return;
-        }
-        Symbol s1 = new Symbol(ctx.INT(1).toString(), ctx.INDENT(0).getText());
-        defineSymbol(ctx, s1);
+            Symbol s2 = new Symbol("POINTER_STRING", ctx.INDENT(1).getText());
+            defineSymbol(ctx, s2);
 
-        this.currentFunction.arguments.add(s1);
+
+            this.currentFunction.arguments.add(s1);
+            this.currentFunction.arguments.add(s2);
     }
 
     public void exitAtribuition(alg.AtribuitionContext ctx) {
@@ -301,10 +294,10 @@ public class TypeChecker extends algBaseListener {
     }
 
     public void exitNull(alg.NullContext ctx) {
-        exprType.put(ctx, Symbol.PType.NULL);
+        exprType.put(ctx, Symbol.PType.POINTER_VOID);
     }
 
-    public void exitDouble(alg.DoubleContext ctx) {
+    public void exitFloat(alg.FloatContext ctx) {
         exprType.put(ctx, Symbol.PType.FLOAT);
     }
 
@@ -403,7 +396,7 @@ public class TypeChecker extends algBaseListener {
             if(type1 == Symbol.PType.INT && type2 == Symbol.PType.INT)
             {
                 exprType.put(ctx, Symbol.PType.INT);
-                System.out.println("REMAINDER : INT");
+
             }
             else
             {
@@ -418,12 +411,12 @@ public class TypeChecker extends algBaseListener {
             if(type1 == Symbol.PType.INT && type2 == Symbol.PType.INT)
             {
                 exprType.put(ctx, Symbol.PType.INT);
-                System.out.println("MULTIDIV: INT");
+
             }
             else if((type1 == Symbol.PType.FLOAT && type2 == Symbol.PType.INT) || (type2 == Symbol.PType.FLOAT && type1 == Symbol.PType.INT))
             {
                 exprType.put(ctx, Symbol.PType.FLOAT);
-                System.out.println("MULTIDIV: FLOAT");
+
             }
             else
             {
@@ -491,6 +484,51 @@ public class TypeChecker extends algBaseListener {
 ////            this.currentFunction.arguments.add(s);
 //        }
 //    }
+
+    public 	void exitFunctionIn(alg.FunctionInContext ctx)
+    {
+        FunctionSymbol s = (FunctionSymbol) this.globalScope.resolve(ctx.function_invocation().INDENT().getText());
+        ArrayList<Symbol.PType> arr1 = new ArrayList<>();
+        for (Symbol sym : s.arguments) {
+            arr1.add(sym.type);
+        }
+
+        ArrayList<Symbol.PType> arr2 = new ArrayList<>();
+
+        for(alg.ExpressionContext expr : ctx.function_invocation().expression_list().expression())
+        {
+            Symbol ss = this.currentScope.resolve(expr.start.getText());
+            if(ss != null)
+            {
+                arr2.add(ss.type);
+            }
+            else
+            {
+                arr2.add(exprType.get(expr));
+            }
+        }
+
+        if(arr1.size() != arr2.size())
+        {
+            System.err.println("Expecting " + arr1.size() + " argument(s)b but " + arr2.size() + " was given.");
+            exprType.put(ctx, Symbol.PType.ERR);
+            this.semanticErrors++;
+            return;
+        }
+
+
+
+        for (int i = 0; i < arr2.size(); i++) {
+            Symbol temp = new Symbol(arr2.get(i).toString(), "temp");
+            if(!temp.isConvertible(arr1.get(i)))
+            {
+                System.err.println("Expecting type " + arr1.get(i).toString() + " but " + arr2.get(i).toString() + " was given.");
+                exprType.put(ctx, Symbol.PType.ERR);
+                this.semanticErrors++;
+                return;
+            }
+        }
+    }
 
 
     // function_invocation_special -> (WRITE | WRITELN) '(' expression_list ')'

@@ -226,17 +226,17 @@ public interface algListener extends ParseTreeListener {
 	 */
 	void exitVar(alg.VarContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Double}
+	 * Enter a parse tree produced by the {@code Float}
 	 * labeled alternative in {@link alg#simple_expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterDouble(alg.DoubleContext ctx);
+	void enterFloat(alg.FloatContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Double}
+	 * Exit a parse tree produced by the {@code Float}
 	 * labeled alternative in {@link alg#simple_expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitDouble(alg.DoubleContext ctx);
+	void exitFloat(alg.FloatContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code String}
 	 * labeled alternative in {@link alg#simple_expression}.

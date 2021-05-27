@@ -1,7 +1,12 @@
-
-int alg(int z)
+int l(float bola)
 {
-
-
     leave;
+}
+
+
+int alg(int x, <string> s)
+{
+int y;
+l(1.2);
+leave;
 }
