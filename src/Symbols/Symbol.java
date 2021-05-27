@@ -45,4 +45,23 @@ public class Symbol {
     {
         return name + ":" + this.type;
     }
+
+    public boolean isPointerType()
+    {
+        return this.type.toString().contains("POINTER");
+    }
+
+    public boolean isConvertible(Symbol.PType t2)
+    {
+        Symbol.PType t = this.type;
+        boolean result;
+
+        if(t == t2)
+            result = true;
+        else if(t == PType.INT && t2 == PType.FLOAT)
+            result = true;
+        else result = this.isPointerType() && t2 == PType.POINTER_VOID;
+
+        return result;
+    }
 }

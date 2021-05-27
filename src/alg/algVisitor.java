@@ -139,12 +139,12 @@ public interface algVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVar(alg.VarContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Double}
+	 * Visit a parse tree produced by the {@code Float}
 	 * labeled alternative in {@link alg#simple_expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDouble(alg.DoubleContext ctx);
+	T visitFloat(alg.FloatContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code String}
 	 * labeled alternative in {@link alg#simple_expression}.

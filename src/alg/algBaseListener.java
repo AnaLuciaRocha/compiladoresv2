@@ -244,13 +244,13 @@ public class algBaseListener implements algListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDouble(alg.DoubleContext ctx) { }
+	@Override public void enterFloat(alg.FloatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDouble(alg.DoubleContext ctx) { }
+	@Override public void exitFloat(alg.FloatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
