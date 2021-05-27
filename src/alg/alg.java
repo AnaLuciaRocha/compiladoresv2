@@ -1,4 +1,4 @@
-// Generated from /home/jay/IdeaProjects/compiladoresv2/src/alg.g4 by ANTLR 4.9.1
+// Generated from C:/Users/x1/OneDrive - Universidade do Algarve/LEI/06_Semestre/P2/src\alg.g4 by ANTLR 4.9.1
 package alg;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -25,7 +25,7 @@ public class alg extends Parser {
 		MULT=35, DIV=36, REMAIN=37, L_BRACKET=38, R_BRACKET=39, QUESTION=40, LESS_THAN=41, 
 		GREATER_THAN=42, GREATER_EQUAL_THAN=43, LESS_EQUAL_THAN=44, IS_EQUAL=45, 
 		EQUAL=46, DIFERENT=47, NOT=48, AND=49, OR=50, MUCH_BIGGER_THAN=51, AT=52, 
-		L_CURVE_BRACKET=53, R_CURVE_BRACKET=54;
+		L_CURVE_BRACKET=53, R_CURVE_BRACKET=54, LITERAL_FLOAT=55;
 	public static final int
 		RULE_start = 0, RULE_declaration = 1, RULE_variable_declation = 2, RULE_simple_declaration = 3, 
 		RULE_initialization_declaration = 4, RULE_type = 5, RULE_expression = 6, 
@@ -68,7 +68,7 @@ public class alg extends Parser {
 			"LITERAL_FLOAT", "LITERAL_STRING", "PLUS", "MINUS", "MULT", "DIV", "REMAIN", 
 			"L_BRACKET", "R_BRACKET", "QUESTION", "LESS_THAN", "GREATER_THAN", "GREATER_EQUAL_THAN", 
 			"LESS_EQUAL_THAN", "IS_EQUAL", "EQUAL", "DIFERENT", "NOT", "AND", "OR", 
-			"MUCH_BIGGER_THAN", "AT", "L_CURVE_BRACKET", "R_CURVE_BRACKET"
+			"MUCH_BIGGER_THAN", "AT", "L_CURVE_BRACKET", "R_CURVE_BRACKET", "LITERAL_FLOAT"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -484,13 +484,16 @@ public class alg extends Parser {
 			case L_PAREN:
 			case INDENT:
 			case LITERAL_INT:
+
 			case LITERAL_FLOAT:
+
 			case LITERAL_STRING:
 			case PLUS:
 			case MINUS:
 			case QUESTION:
 			case NOT:
 			case AT:
+			case LITERAL_FLOAT:
 				{
 				setState(83);
 				expression(0);
@@ -869,9 +872,12 @@ public class alg extends Parser {
 			case WRITELN:
 			case INDENT:
 			case LITERAL_INT:
+
 			case LITERAL_FLOAT:
+
 			case LITERAL_STRING:
 			case AT:
+			case LITERAL_FLOAT:
 				{
 				_localctx = new SimpleExprContext(_localctx);
 				_ctx = _localctx;
@@ -1400,13 +1406,16 @@ public class alg extends Parser {
 			case L_PAREN:
 			case INDENT:
 			case LITERAL_INT:
+
 			case LITERAL_FLOAT:
+
 			case LITERAL_STRING:
 			case PLUS:
 			case MINUS:
 			case QUESTION:
 			case NOT:
 			case AT:
+			case LITERAL_FLOAT:
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(153);
@@ -2345,6 +2354,7 @@ public class alg extends Parser {
 			case L_PAREN:
 			case INDENT:
 			case LITERAL_INT:
+
 			case LITERAL_FLOAT:
 			case LITERAL_STRING:
 			case PLUS:
@@ -2352,6 +2362,7 @@ public class alg extends Parser {
 			case QUESTION:
 			case NOT:
 			case AT:
+			case LITERAL_FLOAT:
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(263);
@@ -2480,6 +2491,7 @@ public class alg extends Parser {
 				case L_PAREN:
 				case INDENT:
 				case LITERAL_INT:
+
 				case LITERAL_FLOAT:
 				case LITERAL_STRING:
 				case PLUS:
@@ -2487,6 +2499,7 @@ public class alg extends Parser {
 				case QUESTION:
 				case NOT:
 				case AT:
+				case LITERAL_FLOAT:
 					{
 					setState(275);
 					expression(0);
@@ -2769,6 +2782,7 @@ public class alg extends Parser {
 			setState(309);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
+
 			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << SIZEOF) | (1L << NULL) | (1L << TRUE) | (1L << FALSE) | (1L << WHILE) | (1L << LEAVE) | (1L << RESTART) | (1L << RETURN) | (1L << IF) | (1L << WRITE) | (1L << WRITELN) | (1L << L_PAREN) | (1L << INDENT) | (1L << LITERAL_INT) | (1L << LITERAL_FLOAT) | (1L << LITERAL_STRING) | (1L << PLUS) | (1L << MINUS) | (1L << QUESTION) | (1L << NOT) | (1L << AT) | (1L << L_CURVE_BRACKET))) != 0)) {
 				{
 				{
@@ -2821,7 +2835,7 @@ public class alg extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\38\u013d\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\39\u013d\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
@@ -2871,7 +2885,7 @@ public class alg extends Parser {
 		"\2\2\u0085w\3\2\2\2\u0085z\3\2\2\2\u0085}\3\2\2\2\u0085\u0080\3\2\2\2"+
 		"\u0086\u0089\3\2\2\2\u0087\u0085\3\2\2\2\u0087\u0088\3\2\2\2\u0088\17"+
 		"\3\2\2\2\u0089\u0087\3\2\2\2\u008a\u0093\7 \2\2\u008b\u0093\7\t\2\2\u008c"+
-		"\u0093\7\37\2\2\u008d\u0093\7!\2\2\u008e\u0093\7\"\2\2\u008f\u0093\7\13"+
+		"\u0093\7\37\2\2\u008d\u0093\79\2\2\u008e\u0093\7\"\2\2\u008f\u0093\7\13"+
 		"\2\2\u0090\u0093\7\f\2\2\u0091\u0093\5\26\f\2\u0092\u008a\3\2\2\2\u0092"+
 		"\u008b\3\2\2\2\u0092\u008c\3\2\2\2\u0092\u008d\3\2\2\2\u0092\u008e\3\2"+
 		"\2\2\u0092\u008f\3\2\2\2\u0092\u0090\3\2\2\2\u0092\u0091\3\2\2\2\u0093"+

@@ -18,7 +18,7 @@ public class Symbol {
         POINTER_VOID,
         VOID,
         ERR,
-        NULL,
+
     }
 
     public PType type;
@@ -32,6 +32,7 @@ public class Symbol {
         this.name = name;
     }
 
+
     /**
      * Compara TODO
      */
@@ -40,6 +41,9 @@ public class Symbol {
 
         return result;
     }
+
+
+
 
     public String toString()
     {

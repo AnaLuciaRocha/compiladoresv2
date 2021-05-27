@@ -38,63 +38,33 @@ public class TypeChecker extends algBaseListener {
     /**
      * Set symbol type for class symbol considering pointer types
      * bad practice, but easy way to do it
+     *
      * @param symbol
      * @return string
      */
     //int x
-    private String setSymbolType(String symbol ){
+    private String setSymbolType(String symbol) {
         String result = symbol;
-        if(symbol.equals("<string>")) {
+        if (symbol.equals("<string>")) {
             result = "POINTER_STRING";
-        }
-        else if(symbol.equals("<float>")) {
+        } else if (symbol.equals("<float>")) {
             result = "POINTER_FLOAT";
-        }
-        else if(symbol.equals("<int>")) {
+        } else if (symbol.equals("<int>")) {
             result = "POINTER_INT";
-        }
-        else if(symbol.equals("<bool>")) {
+        } else if (symbol.equals("<bool>")) {
             result = "POINTER_BOOL";
-        }
-        else if(symbol.equals("<void>")) {
+        } else if (symbol.equals("<void>")) {
             result = "POINTER_VOID";
-        }
-
-        else if(symbol.equals("null")) { //TODO check after question
+        } else if (symbol.equals("null")) { //TODO check after question
             result = "POINTER_VOID";
         }
 
         return result;
     }
 
-//    /**
-//     * Set symbol type for class symbol considering pointer types
-//     * bad practice, but easy way to do it
-//     * @param symbol
-//     * @return string
-//     */
-//    //int x
-//    private Symbol.PType getSymbolType(String symbol ){
-//        Symbol.PType result = symbol;
-//        if(symbol.equals("<string>")) {
-//            result = "POINTER_STRING";
-//        }
-//        else if(symbol.equals("<float>")) {
-//            result = "POINTER_FLOAT";
-//        }
-//        else if(symbol.equals("<int>")) {
-//            result = "POINTER_INT";
-//        }
-//        else if(symbol.equals("<bool>")) {
-//            result = "POINTER_BOOL";
-//        }
-//        else if(symbol.equals("<void>")) {
-//            result = "POINTER_VOID";
-//        }
-//        return result;
-//    }
     /**
      * Returns if symbols is a pointer or not
+     *
      * @param symbol
      */
     private boolean isPointerType(Symbol.PType symbol) {
@@ -103,6 +73,7 @@ public class TypeChecker extends algBaseListener {
 
     /**
      * Returns if symbols is a void pointer
+     *
      * @param symbol
      */
     private boolean isEmptyPointerType(Symbol.PType symbol) {
@@ -110,13 +81,13 @@ public class TypeChecker extends algBaseListener {
     }
 
 
-        /**
-         *Check if is primitive type (everything excepts void)
-         * @param symbol
-         * @return
-         */
-    private boolean isPrimitiveType(Symbol.PType symbol)
-    {
+    /**
+     * Check if is primitive type (everything excepts void)
+     *
+     * @param symbol
+     * @return
+     */
+    private boolean isPrimitiveType(Symbol.PType symbol) {
         return symbol != Symbol.PType.VOID;
 //        return !isPointerType(symbol) && symbol != Symbol.PType.VOID;
 
@@ -124,10 +95,11 @@ public class TypeChecker extends algBaseListener {
 
     /**
      * Check if a type is numeric (int || float)
+     *
      * @param type
      * @return boolean
      */
-    private boolean isNumericType( Symbol.PType type){
+    private boolean isNumericType(Symbol.PType type) {
         return type == Symbol.PType.INT || type == Symbol.PType.FLOAT;
 
     }
@@ -135,12 +107,13 @@ public class TypeChecker extends algBaseListener {
 
     /**
      * Transforms primitive type into pointer type
+     *
      * @param primitive type (int, bool, float, null, void)
      * @return pointer type
      */
-    private Symbol.PType primitiveToPointertype(Symbol.PType primitive){
+    private Symbol.PType primitiveToPointertype(Symbol.PType primitive) {
         Symbol.PType result = primitive;
-        if(primitive == Symbol.PType.INT)
+        if (primitive == Symbol.PType.INT)
             result = Symbol.PType.POINTER_INT;
         else if (primitive == Symbol.PType.BOOL)
             result = Symbol.PType.POINTER_BOOL;
@@ -148,7 +121,7 @@ public class TypeChecker extends algBaseListener {
             result = Symbol.PType.POINTER_FLOAT;
 //        else if (primitive == Symbol.PType.NULL)
 //            result = Symbol.PType.POINTER_VOID;
-        else if(primitive == Symbol.PType.STRING)
+        else if (primitive == Symbol.PType.STRING)
             result = Symbol.PType.POINTER_STRING;
         return result;
 
@@ -182,6 +155,7 @@ public class TypeChecker extends algBaseListener {
 
     /**
      * Generate error when there's no main function ('alg')
+     *
      * @param ctx
      */
     public void exitStart(alg.StartContext ctx) {
@@ -194,12 +168,9 @@ public class TypeChecker extends algBaseListener {
     }
 
 
-
-
     // ******************************************************
     // *******************  Functions   *******************
     // ******************************************************
-
 
 
     //Saida de uma variavel. Retorna erro caso a variavel nao foi definida antes ou é utilizada como uma função.
@@ -246,7 +217,6 @@ public class TypeChecker extends algBaseListener {
     }
 
 
-
     //Saida de uma initialization_declaration, define um symbol para a dada inicializacao
     public void exitInitialization_declaration(alg.Initialization_declarationContext ctx) {
         defineSymbol(ctx, new Symbol(setSymbolType(ctx.type().getText()), ctx.INDENT().getText()));
@@ -257,38 +227,30 @@ public class TypeChecker extends algBaseListener {
     //Entra em uma declaração de uma função, define um novo scope  e um novo symbol para esta nova função.
 
 
-    public void enterFunction_declaration(alg.Function_declarationContext ctx)
-    {
+    public void enterFunction_declaration(alg.Function_declarationContext ctx) {
         FunctionSymbol f = null;
         String functionName = null;
-        if(ctx.INDENT() != null)
-        {
+        if (ctx.INDENT() != null) {
             functionName = ctx.INDENT().getText();
             String type = ctx.function_type().start.getText();
-            f = new FunctionSymbol(type,functionName);
+            f = new FunctionSymbol(type, functionName);
 
-            if(ctx.function_type() == null)
-            {
+            if (ctx.function_type() == null) {
                 return;
             }
         }
 
 
-        if(ctx.INDENT() == null)
-        {
+        if (ctx.INDENT() == null) {
             functionName = ctx.main_function_declaration().ALG().getText();
             String type = ctx.main_function_declaration().INT(0).getText();
             f = new FunctionSymbol(type, functionName);
         }
 
 
-
-        if(defineSymbol(ctx,f))
-        {
-            if(ctx.INDENT() != null)
-            {
-                for (alg.Simple_declarationContext terminalNode : ctx.arg(0).simple_declaration())
-                {
+        if (defineSymbol(ctx, f)) {
+            if (ctx.INDENT() != null) {
+                for (alg.Simple_declarationContext terminalNode : ctx.arg(0).simple_declaration()) {
 
                 }
             }
@@ -307,13 +269,14 @@ public class TypeChecker extends algBaseListener {
         }
     }
 
-    public void exitFunction_declaration(alg.Function_declarationContext ctx)
-    {
-        if(this.currentFunction == null) return;
+
+    public void exitFunction_declaration(alg.Function_declarationContext ctx) {
+        if (this.currentFunction == null) return;
+
 
         //Print arguments
-        for (Symbol s : this.currentFunction.arguments)
-        {
+        for (Symbol s : this.currentFunction.arguments) {
+            System.out.println("Argument: " + s.name + " Tipo: " + s.type);
 
         }
 
@@ -327,8 +290,7 @@ public class TypeChecker extends algBaseListener {
         currentScope = currentScope.getParentScope();
     }
 
-    public void exitMain_function_declaration(alg.Main_function_declarationContext ctx)
-    {
+    public void exitMain_function_declaration(alg.Main_function_declarationContext ctx) {
 
 
             if(ctx.INT(1) == null || ctx.STRING() == null)
@@ -348,24 +310,7 @@ public class TypeChecker extends algBaseListener {
             this.currentFunction.arguments.add(s2);
     }
 
-    public void exitAtribuition(alg.AtribuitionContext ctx) {
-        String variableName = ctx.INDENT().getText();
-        Symbol s = this.currentScope.resolve(variableName);
-        if (s == null) {
-            System.err.println("Undefined variable " + variableName + " in line " + ctx.INDENT().getSymbol().getLine());
-            this.semanticErrors++;
-            exprType.put(ctx, Symbol.PType.ERR);
-            return;
-        }
-        if (s instanceof FunctionSymbol) {
-            System.err.println("Using function symbol " + variableName + " as variable in line " + ctx.INDENT().getSymbol().getLine());
-            this.semanticErrors++;
-            exprType.put(ctx, Symbol.PType.ERR);
-            return;
-        }
 
-        exprType.put(ctx, s.type);
-    }
     // ******************************************************
     // *******************  EXPRESSIONS   *******************
     // ******************************************************
@@ -407,12 +352,18 @@ public class TypeChecker extends algBaseListener {
 //    expression: L_PAREN expression R_PAREN
     public void exitParenExpr(alg.ParenExprContext ctx) {
         Symbol.PType type = exprType.get(ctx.expression());
+        if (type == Symbol.PType.ERR ) {
+            exprType.put(ctx, Symbol.PType.ERR);
+            return;
+        }
         exprType.put(ctx, type);
     }
 
 
+
 //    expression: expression L_BRACKET expression R_BRACKET
     public void exitIndexArr(alg.IndexArrContext ctx){
+
         Symbol.PType expr1 = exprType.get(ctx.expression(0));
         Symbol.PType expr2 = exprType.get(ctx.expression(1));
         if(expr1 == Symbol.PType.ERR || expr2 == Symbol.PType.ERR)
@@ -434,19 +385,15 @@ public class TypeChecker extends algBaseListener {
     }
 //    expression: (PLUS | MINUS | NOT | QUESTION) expression
 
-    public void exitUnary(alg.UnaryContext ctx)
-    {
+    public void exitUnary(alg.UnaryContext ctx) {
         Symbol.PType type = exprType.get(ctx.expression());
-        if(type == Symbol.PType.ERR )
-        {
+        if (type == Symbol.PType.ERR) {
             exprType.put(ctx, Symbol.PType.ERR);
             return;
         }
-        if(ctx.NOT() != null)
-        {
-            if(type == Symbol.PType.BOOL) exprType.put(ctx, Symbol.PType.BOOL);
-            else
-            {
+        if (ctx.NOT() != null) {
+            if (type == Symbol.PType.BOOL) exprType.put(ctx, Symbol.PType.BOOL);
+            else {
                 System.err.println("Expected a boolean type in line " + ctx.start.getLine());
                 exprType.put(ctx, Symbol.PType.ERR);
                 this.semanticErrors++;
@@ -463,13 +410,12 @@ public class TypeChecker extends algBaseListener {
                 this.semanticErrors++;
             }
         }
-        if(ctx.QUESTION() != null){ //Pointer Extraction
-            if ((ctx.expression().start.getType() == algLexer.INDENT  || (ctx.expression() instanceof alg.IndexArrContext))
+        if (ctx.QUESTION() != null) { //Pointer Extraction
+            if ((ctx.expression().start.getType() == algLexer.INDENT || (ctx.expression() instanceof alg.IndexArrContext))
                     && !isPointerType(type) && isPrimitiveType(type)) {
                 exprType.put(ctx, primitiveToPointertype(type));
-            }
-            else {
-                System.err.println("Mismatched type for pointer extraction in line: " + ctx.start.getLine() );
+            } else {
+                System.err.println("Mismatched type for pointer extraction in line: " + ctx.start.getLine());
                 exprType.put(ctx, Symbol.PType.ERR);
                 this.semanticErrors++;
             }
@@ -488,22 +434,20 @@ public class TypeChecker extends algBaseListener {
 //TODO must check type uppercast and downcast
 
 
-//    expression: expression (MULT | DIV | REMAIN) expression
+    //    expression: expression (MULT | DIV | REMAIN) expression
     public void exitMultDiv(alg.MultDivContext ctx) {
         Symbol.PType type1 = exprType.get(ctx.expression(0));
         Symbol.PType type2 = exprType.get(ctx.expression(1));
-        if(type1 == Symbol.PType.ERR || type2 == Symbol.PType.ERR )
-        {
+        if (type1 == Symbol.PType.ERR || type2 == Symbol.PType.ERR) {
             exprType.put(ctx, Symbol.PType.ERR);
             return;
         }
         if (ctx.REMAIN() != null) {
             if (type1 == Symbol.PType.INT && type2 == Symbol.PType.INT) {
                 exprType.put(ctx, Symbol.PType.INT);
+                System.out.println("REMAINDER : INT");
+            } else {
 
-            }
-            else
-            {
                 System.err.println("Expected to have INT % INT but other type was given. Error in line: " + ctx.start.getLine());
                 exprType.put(ctx, Symbol.PType.ERR);
                 this.semanticErrors++;
@@ -512,18 +456,15 @@ public class TypeChecker extends algBaseListener {
 
         } else //Multiplication and Division
         {
-            if(type1 == Symbol.PType.INT && type2 == Symbol.PType.INT)
-            {
+            if (type1 == Symbol.PType.INT && type2 == Symbol.PType.INT) {
                 exprType.put(ctx, Symbol.PType.INT);
 
-            }
-            else if((type1 == Symbol.PType.FLOAT && type2 == Symbol.PType.INT) || (type2 == Symbol.PType.FLOAT && type1 == Symbol.PType.INT))
-            {
+                System.out.println("MULTIDIV: INT");
+            } else if ((type1 == Symbol.PType.FLOAT && type2 == Symbol.PType.INT) || (type2 == Symbol.PType.FLOAT && type1 == Symbol.PType.INT)) {
                 exprType.put(ctx, Symbol.PType.FLOAT);
+                System.out.println("MULTIDIV: FLOAT");
+            } else {
 
-            }
-            else
-            {
                 System.err.println("Expected an INT or FLOAT but other type was given. Error in line: " + ctx.start.getLine());
                 exprType.put(ctx, Symbol.PType.ERR);
                 this.semanticErrors++;
@@ -533,14 +474,11 @@ public class TypeChecker extends algBaseListener {
     }
 
 
-
-
 // TODO jay is going to do it
 // expression (PLUS | MINUS) expression
 
 
-
-//    /**
+    //    /**
 //     *
 //     * @param type
 //     * @return
@@ -552,8 +490,7 @@ public class TypeChecker extends algBaseListener {
     public void exitBinaryComparator(alg.BinaryComparatorContext ctx) {
         Symbol.PType type1 = exprType.get(ctx.expression(0));
         Symbol.PType type2 = exprType.get(ctx.expression(1));
-        if(type1 == Symbol.PType.ERR || type2 == Symbol.PType.ERR )
-        {
+        if (type1 == Symbol.PType.ERR || type2 == Symbol.PType.ERR) {
             exprType.put(ctx, Symbol.PType.ERR);
             return;
         }
@@ -562,20 +499,19 @@ public class TypeChecker extends algBaseListener {
         if (ctx.IS_EQUAL() != null || ctx.DIFERENT() != null) {
             if (isPrimitiveType(type1) && isPrimitiveType(type2) && type1 == type2) { //primitive types
                 exprType.put(ctx, Symbol.PType.BOOL);
-            }
-            else if (isEmptyPointerType(type1) && isPointerType(type2) || isPointerType(type1) && isEmptyPointerType(type2)
+            } else if (isEmptyPointerType(type1) && isPointerType(type2) || isPointerType(type1) && isEmptyPointerType(type2)
                     || type1 == type2) //pointers
             {
                 exprType.put(ctx, Symbol.PType.BOOL);
-            }
-            else {
+            } else {
                 System.err.println("Can't compare different types. Expected primitive values or pointer types with same type. Error in line: " + ctx.start.getLine());
                 exprType.put(ctx, Symbol.PType.ERR);
                 this.semanticErrors++;
             }
         } else {
 
-            if ( isNumericType(type1) &&  isNumericType(type2)) {
+            if (isNumericType(type1) && isNumericType(type2)) {
+
 
                 exprType.put(ctx, Symbol.PType.BOOL);
             } else {
@@ -594,6 +530,11 @@ public class TypeChecker extends algBaseListener {
 
         Symbol.PType type1 = exprType.get(ctx.expression(0));
         Symbol.PType type2 = exprType.get(ctx.expression(1));
+
+        if (type1 == Symbol.PType.ERR || type2 == Symbol.PType.ERR) {
+            exprType.put(ctx, Symbol.PType.ERR);
+            return;
+        }
         if (type1 == Symbol.PType.BOOL && type1 == type2) {
             exprType.put(ctx, Symbol.PType.BOOL);
         } else {
@@ -643,6 +584,7 @@ public class TypeChecker extends algBaseListener {
         if(arr1.size() != arr2.size())
         {
             System.err.println("Expecting " + arr1.size() + " argument(s)b but " + arr2.size() + " was given.");
+
             exprType.put(ctx, Symbol.PType.ERR);
             this.semanticErrors++;
             return;
@@ -665,18 +607,17 @@ public class TypeChecker extends algBaseListener {
 
 
     // expression : expression OR expression
+    public void exitOrComparator(alg.OrComparatorContext ctx) {
 
-
-    public void exitOrComparator(alg.OrComparatorContext ctx)
-    {
         Symbol.PType type1 = exprType.get(ctx.expression(0));
         Symbol.PType type2 = exprType.get(ctx.expression(1));
-        if(type1 == Symbol.PType.BOOL && type1 == type2)
-        {
-            exprType.put(ctx, Symbol.PType.BOOL);
+        if (type1 == Symbol.PType.ERR || type2 == Symbol.PType.ERR) {
+            exprType.put(ctx, Symbol.PType.ERR);
+            return;
         }
-        else
-        {
+        if (type1 == Symbol.PType.BOOL && type1 == type2) {
+            exprType.put(ctx, Symbol.PType.BOOL);
+        } else {
             System.err.println("Expected two BOOL but other type was given. Error in line: " + ctx.start.getLine());
             exprType.put(ctx, Symbol.PType.ERR);
             this.semanticErrors++;
@@ -684,17 +625,36 @@ public class TypeChecker extends algBaseListener {
     }
 
 
-
     // ******************************************************
     // ***************  FUNCTION INVOCATION   ****************
     // ******************************************************
 
 
-
-
     // ******************************************************
     // *************** INSTRUCTIONS  ****************
     // ******************************************************
+
+    //    atribuition : (INDENT | index_pointer) EQUAL expression  ;
+    public void exitAtribuition(alg.AtribuitionContext ctx) {
+        String variableName = ctx.INDENT().getText();
+        Symbol s = this.currentScope.resolve(variableName);
+        Symbol.PType expresssion_type = exprType.get(ctx.expression());
+        if (s == null) {
+            System.err.println("Undefined variable " + variableName + " in line " + ctx.INDENT().getSymbol().getLine());
+            this.semanticErrors++;
+            exprType.put(ctx, Symbol.PType.ERR);
+            return;
+        }
+        if(s.type ==  expresssion_type)
+        if (s instanceof FunctionSymbol) {
+            System.err.println("Using function symbol " + variableName + " as variable in line " + ctx.INDENT().getSymbol().getLine());
+            this.semanticErrors++;
+            exprType.put(ctx, Symbol.PType.ERR);
+            return;
+        }
+
+        exprType.put(ctx, s.type);
+    }
 
 
     // function_invocation_special -> (WRITE | WRITELN) '(' expression_list ')'
@@ -706,17 +666,13 @@ public class TypeChecker extends algBaseListener {
         }
 
     }
-              
 
 
-
-
-    public void exitArg(alg.ArgContext ctx)
-    {
+    public void exitArg(alg.ArgContext ctx) {
 
         for (alg.Simple_declarationContext terminalNode : ctx.simple_declaration()) {
-           Symbol s = this.currentScope.resolve(terminalNode.INDENT().get(0).getText());
-           this.currentFunction.arguments.add(s);
+            Symbol s = this.currentScope.resolve(terminalNode.INDENT().get(0).getText());
+            this.currentFunction.arguments.add(s);
         }
     }
 
@@ -733,9 +689,6 @@ public class TypeChecker extends algBaseListener {
 ////            this.currentFunction.arguments.add(s);
 //        }
 //    }
-
-
-
 
 
 }
