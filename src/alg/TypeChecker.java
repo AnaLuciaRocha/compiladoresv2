@@ -57,7 +57,7 @@ public class TypeChecker extends algBaseListener {
         else if(symbol.equals("<void>")) {
             result = "POINTER_VOID";
         }
-        else if(symbol.equals("<null>")) { //TODO check after question
+        else if(symbol.equals("null")) { //TODO check after question
             result = "POINTER_VOID";
         }
         return result;
@@ -142,8 +142,8 @@ public class TypeChecker extends algBaseListener {
             result = Symbol.PType.POINTER_BOOL;
         else if (primitive == Symbol.PType.FLOAT)
             result = Symbol.PType.POINTER_FLOAT;
-        else if (primitive == Symbol.PType.NULL)
-            result = Symbol.PType.POINTER_VOID;
+//        else if (primitive == Symbol.PType.NULL)
+//            result = Symbol.PType.POINTER_VOID;
         else if(primitive == Symbol.PType.STRING)
             result = Symbol.PType.POINTER_STRING;
         return result;
@@ -370,7 +370,7 @@ public class TypeChecker extends algBaseListener {
     }
 
     public void exitNull(alg.NullContext ctx) {
-        exprType.put(ctx, Symbol.PType.NULL);
+        exprType.put(ctx, Symbol.PType.POINTER_VOID);
     }
 
     public void exitDouble(alg.DoubleContext ctx) {
