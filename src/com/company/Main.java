@@ -1,6 +1,7 @@
 package com.company;
 
 import alg.TypeChecker;
+import alg.FunctionDeclarationChecker;
 import alg.alg;
 import alg.algLexer;
 import org.antlr.v4.runtime.CharStreams;
@@ -24,7 +25,11 @@ public class Main {
             ParseTreeWalker walker = new ParseTreeWalker();
             // create listener then feed to walker
             System.out.println("Type checking...");
-            TypeChecker listener = new TypeChecker();
+            FunctionDeclarationChecker functionListener = new FunctionDeclarationChecker();
+            walker.walk(functionListener, tree);
+
+            TypeChecker listener = new TypeChecker(functionListener.functionList);
+
 
             walker.walk(listener, tree);
 
