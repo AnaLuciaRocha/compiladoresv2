@@ -9,6 +9,7 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.beans.Expression;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TypeChecker extends algBaseListener {
@@ -50,7 +51,7 @@ public class TypeChecker extends algBaseListener {
             result = "POINTER_BOOL";
         } else if (symbol.equals("<void>")) {
             result = "POINTER_VOID";
-        } else if (symbol.equals("null")) { //TODO check after question
+        } else if (symbol.equals("null")) {
             result = "POINTER_VOID";
         }
 
@@ -115,8 +116,6 @@ public class TypeChecker extends algBaseListener {
             result = Symbol.PType.POINTER_BOOL;
         else if (primitive == Symbol.PType.FLOAT)
             result = Symbol.PType.POINTER_FLOAT;
-//        else if (primitive == Symbol.PType.NULL)
-//            result = Symbol.PType.POINTER_VOID;
         else if (primitive == Symbol.PType.STRING)
             result = Symbol.PType.POINTER_STRING;
         return result;
@@ -152,11 +151,6 @@ public class TypeChecker extends algBaseListener {
             this.semanticErrors++;
         }
     }
-
-
-    // ******************************************************
-    // *******************  Functions   *******************
-    // ******************************************************
 
 
     // ******************************************************
@@ -212,8 +206,6 @@ public class TypeChecker extends algBaseListener {
 
 
     //Entra em uma declaração de uma função, define um novo scope  e um novo symbol para esta nova função.
-
-
     public void enterFunction_declaration(alg.Function_declarationContext ctx) {
         FunctionSymbol f = null;
         String functionName = null;
@@ -238,7 +230,6 @@ public class TypeChecker extends algBaseListener {
         if (defineSymbol(ctx, f)) {
             if (ctx.INDENT() != null) {
                 for (alg.Simple_declarationContext terminalNode : ctx.arg(0).simple_declaration()) {
-
                 }
             }
 
@@ -248,7 +239,6 @@ public class TypeChecker extends algBaseListener {
             //dentro do enquadramento local da função. É mais fácil fazer isto se o enquadramento já estiver criado.
             //Existem linguagens onde os argumentos formais são guardados num enquadramento à parte especial só para os argumentos.
             //mas não é este o caso aqui.
-
 
             this.currentFunction = f;
             this.currentScope = new Scope(this.currentScope);
@@ -330,7 +320,6 @@ public class TypeChecker extends algBaseListener {
         exprType.put(ctx, Symbol.PType.BOOL);
     }
 
-    //TODO function invocation
 
 
     // ################### expressions
@@ -402,16 +391,6 @@ public class TypeChecker extends algBaseListener {
                 this.semanticErrors++;
             }
         }
-//        if(ctx.QUESTION() != null){
-//            if (ctx.expression().start.getType() == algLexer.INDENT  && ctx.expression() instanceof alg.IndexArrContext &&
-//            !isPointerType(type) && isPrimitiveType(type))
-//                exprType.put(ctx, Symbol.PType.INT);
-//            else {
-//                System.err.println("Expected blablablab " + ctx.start.getLine());
-//                exprType.put(ctx, Symbol.PType.ERR);
-//                this.semanticErrors++;
-//            }
-//        }
     }
 
 
