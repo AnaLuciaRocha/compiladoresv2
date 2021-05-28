@@ -1,12 +1,19 @@
-int l(float bola)
+float l(float bola)
+@
 {
-    leave;
+
 }
+{
+
+    while true do (3+3) leave;
+    return 3.3;
+}
+{
+
+}>>
 
 
 int alg(int x, <string> s)
 {
-int y;
-l(1.2);
-leave;
+return 0;
 }

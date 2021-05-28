@@ -472,13 +472,13 @@ public class algBaseListener implements algListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInstructions(alg.InstructionsContext ctx) { }
+	@Override public void enterInstructions_cycle(alg.Instructions_cycleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInstructions(alg.InstructionsContext ctx) { }
+	@Override public void exitInstructions_cycle(alg.Instructions_cycleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -491,6 +491,30 @@ public class algBaseListener implements algListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitInstruction_control(alg.Instruction_controlContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInstructions(alg.InstructionsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInstructions(alg.InstructionsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInstruction_control_cycle(alg.Instruction_control_cycleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInstruction_control_cycle(alg.Instruction_control_cycleContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

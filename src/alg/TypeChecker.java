@@ -530,6 +530,83 @@ public class TypeChecker extends algBaseListener {
         }
     }
 
+    public void exitBody(alg.BodyContext ctx)
+    {
+        alg.BlockContext mainBlock = ctx.block();
+        boolean hasReturn = false;
+        boolean isvoid = false;
+
+        //Check to see if function type if void, because the return keyword is optional
+        if(this.currentFunction.type == Symbol.PType.VOID)
+        {
+               isvoid = true;
+        }
+
+        for (alg.InstructionsContext instruction : mainBlock.instructions())
+        {
+            //In case the return has already been declared there shouldnt be any more instructions after it.
+            if(hasReturn)
+            {
+                System.err.println("Return should be the last instruction at line " + instruction.start.getLine());
+                exprType.put(ctx, Symbol.PType.ERR);
+                this.semanticErrors++;
+            }
+
+            //If conditions is met, means that the function has a return in it. It also checks if matches the function type
+            if(instruction.instruction_control() != null && instruction.instruction_control().RETURN() != null)
+            {
+                hasReturn = true;
+                Symbol.PType type_expression = exprType.get(instruction.instruction_control().expression());
+                if(type_expression == null || !new Symbol(type_expression.toString(), "temp").isConvertible(this.currentFunction.type))
+                {
+                    System.err.println("Function " + this.currentFunction.name + " except to return type: " + this.currentFunction.type);
+                    exprType.put(ctx, Symbol.PType.ERR);
+                    this.semanticErrors++;
+                }
+
+            }
+        }
+
+        //If return is not optional and there was no return it is an error.
+        if(!hasReturn && !isvoid)
+        {
+            System.err.println("Function " + this.currentFunction.name + " is expecting a return");
+            exprType.put(ctx, Symbol.PType.ERR);
+            this.semanticErrors++;
+        }
+    }
+
+
+    public void exitCycle(alg.CycleContext ctx)
+    {
+        boolean leaveRestarUsed = false;
+
+        for (alg.Instructions_cycleContext instruction : ctx.instructions_cycle())
+        {
+            if(leaveRestarUsed)
+            {
+                System.err.println("Leave and Restart should be the last instruction inside the cycle. Error in line: " + instruction.start.getLine());
+                exprType.put(ctx, Symbol.PType.ERR);
+                this.semanticErrors++;
+            }
+
+
+            if(instruction.instruction_control_cycle() != null)
+            {
+                boolean hasLeave = instruction.instruction_control_cycle().LEAVE() != null;
+                boolean hasRestart = instruction.instruction_control_cycle().RESTART() != null;
+
+                if(hasRestart || hasLeave) leaveRestarUsed = true;
+            }
+
+
+        }
+
+    }
+
+
+
+
 
     // function_invocation_special -> (WRITE | WRITELN) '(' expression_list ')'
     public void exitWriteFunction(alg.WriteFunctionContext ctx) {

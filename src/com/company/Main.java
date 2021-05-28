@@ -20,6 +20,7 @@ public class Main {
             ParseTree tree = simpleParser.start();
             System.out.println("syntatic parsing finished");
 
+
             // create a standard ANTLR parse tree walker
             ParseTreeWalker walker = new ParseTreeWalker();
             // create listener then feed to walker

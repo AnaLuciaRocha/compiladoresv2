@@ -261,17 +261,29 @@ public interface algVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBlock(alg.BlockContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link alg#instructions}.
+	 * Visit a parse tree produced by {@link alg#instructions_cycle}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitInstructions(alg.InstructionsContext ctx);
+	T visitInstructions_cycle(alg.Instructions_cycleContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link alg#instruction_control}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitInstruction_control(alg.Instruction_controlContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link alg#instructions}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInstructions(alg.InstructionsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link alg#instruction_control_cycle}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInstruction_control_cycle(alg.Instruction_control_cycleContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link alg#atribuition}.
 	 * @param ctx the parse tree
