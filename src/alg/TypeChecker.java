@@ -14,12 +14,19 @@ import java.util.List;
 
 public class TypeChecker extends algBaseListener {
 
+    public TypeChecker(List<FunctionSymbol> functionSymbolList){
+        this.functionSymbolList = functionSymbolList;
+
+    }
+
     public Scope globalScope;
     public Scope currentScope;
     private FunctionSymbol currentFunction;
+    private List<FunctionSymbol> functionSymbolList;
     public int semanticErrors;
 
     ParseTreeProperty<Symbol.PType> exprType = new ParseTreeProperty<>(); //tabela de simbolos
+
 
     //métodos auxiliar (é usado em 2 regras gramaticais)
     private boolean defineSymbol(ParserRuleContext ctx, Symbol s) {
@@ -132,6 +139,11 @@ public class TypeChecker extends algBaseListener {
     public void enterStart(alg.StartContext ctx) {
         globalScope = new Scope(null);
         this.currentScope = globalScope;
+        //info from the 2nd listner
+        for(FunctionSymbol f : functionSymbolList){
+            defineSymbol(ctx, f);
+        }
+
     }
 
     //Saida da regra principal, estamos a imprimir só para ver todos os símbolos que foram criados no scope global
@@ -212,8 +224,8 @@ public class TypeChecker extends algBaseListener {
         if (ctx.INDENT() != null) {
             functionName = ctx.INDENT().getText();
             String type = ctx.function_type().start.getText();
-            f = new FunctionSymbol(type, functionName);
-
+//            f = new FunctionSymbol(type, functionName);
+            f = (FunctionSymbol) this.currentScope.resolve(functionName);
             if (ctx.function_type() == null) {
                 return;
             }
@@ -223,15 +235,14 @@ public class TypeChecker extends algBaseListener {
         if (ctx.INDENT() == null) {
             functionName = ctx.main_function_declaration().ALG().getText();
             String type = ctx.main_function_declaration().INT(0).getText();
-            f = new FunctionSymbol(type, functionName);
+//            f = new FunctionSymbol(type, functionName);
+            f = (FunctionSymbol) this.currentScope.resolve(functionName);
+
         }
 
 
-        if (defineSymbol(ctx, f)) {
-            if (ctx.INDENT() != null) {
-                for (alg.Simple_declarationContext terminalNode : ctx.arg(0).simple_declaration()) {
-                }
-            }
+//        if (defineSymbol(ctx, f)) {
+
 
 
             //para além de adicionarmos a função à tabela de símbolos, esta vai criar um novo enquadramento local
@@ -242,7 +253,7 @@ public class TypeChecker extends algBaseListener {
 
             this.currentFunction = f;
             this.currentScope = new Scope(this.currentScope);
-        }
+//        }
     }
 
 
@@ -251,15 +262,14 @@ public class TypeChecker extends algBaseListener {
 
 
         //Print arguments
-        for (Symbol s : this.currentFunction.arguments) {
-            System.out.println("Argument: " + s.name + " Tipo: " + s.type);
-
-        }
+//        for (Symbol s : this.currentFunction.arguments) {
+//            System.out.println("Argument: " + s.name + " Tipo: " + s.type);
+//
+//        }
 
 
         //imprimir o enquadramento local, só para efeito de debug
-
-        System.out.println("Local scope for function " + this.currentFunction.name + ": " + this.currentScope.toString());
+        // System.out.println("Local scope for function " + this.currentFunction.name + ": " + this.currentScope.toString());
         this.currentFunction = null;
 
         //temos de sair do contexto local da função
@@ -271,7 +281,8 @@ public class TypeChecker extends algBaseListener {
 
         if (ctx.INT(1) == null || ctx.STRING() == null) {
             exprType.put(ctx, Symbol.PType.ERR);
-            System.err.println("Wrong arguments were passed to the main function");
+            System.err.println("Wrong arguments were passed to the main function. Error in Line:" + ctx.start.getLine());
+            this.semanticErrors++;
             return;
         }
         Symbol s1 = new Symbol(ctx.INT(1).toString(), ctx.INDENT(0).getText());
@@ -585,7 +596,7 @@ public class TypeChecker extends algBaseListener {
         }
 
         if (arr1.size() != arr2.size()) {
-            System.err.println("Expecting " + arr1.size() + " argument(s)b but " + arr2.size() + " was given.");
+            System.err.println("Expecting " + arr1.size() + " argument(s)b but " + arr2.size() + " was given. Error in line: " + ctx.start.getLine());
             exprType.put(ctx, Symbol.PType.ERR);
             this.semanticErrors++;
             return;
@@ -595,7 +606,9 @@ public class TypeChecker extends algBaseListener {
         for (int i = 0; i < arr2.size(); i++) {
             Symbol temp = new Symbol(arr2.get(i).toString(), "temp");
             if (!temp.isConvertible(arr1.get(i))) {
-                System.err.println("Expecting type " + arr1.get(i).toString() + " but " + arr2.get(i).toString() + " was given.");
+                System.err.println("Expecting type " + arr1.get(i).toString() + " but " + arr2.get(i).toString() + " was given. Error in line: " + ctx.start.getLine());
+                this.semanticErrors++;
+                return;
             }
         }
     }
@@ -623,7 +636,7 @@ public class TypeChecker extends algBaseListener {
                 hasReturn = true;
                 Symbol.PType type_expression = exprType.get(instruction.instruction_control().expression());
                 if (type_expression == null || !new Symbol(type_expression.toString(), "temp").isConvertible(this.currentFunction.type)) {
-                    System.err.println("Function " + this.currentFunction.name + " except to return type: " + this.currentFunction.type);
+                    System.err.println("Function " + this.currentFunction.name + " expects to return type: " + this.currentFunction.type + "Error in line: " + ctx.start.getLine());
                     exprType.put(ctx, Symbol.PType.ERR);
                     this.semanticErrors++;
                 }
@@ -633,7 +646,8 @@ public class TypeChecker extends algBaseListener {
 
         //If return is not optional and there was no return it is an error.
         if (!hasReturn && !isvoid) {
-            System.err.println("Function " + this.currentFunction.name + " is expecting a return");
+            System.err.println("Function " + this.currentFunction.name + " is expecting a return. Error in line: " + ctx.start.getLine());
+            this.semanticErrors++;
         }
     }
 
@@ -690,33 +704,23 @@ public class TypeChecker extends algBaseListener {
     public void exitWriteFunction(alg.WriteFunctionContext ctx) {
         List<alg.ExpressionContext> expressions = ctx.expression_list().expression();
         for (alg.ExpressionContext expr : expressions) {
-            if (isPointerType(exprType.get(expr)))
-                System.err.println("Cannot print pointer types");
-        }
-    }
-
-    //TODO
-    public void exitArg(alg.ArgContext ctx) {
-
-        for (alg.Simple_declarationContext terminalNode : ctx.simple_declaration()) {
-            Symbol s = this.currentScope.resolve(terminalNode.INDENT().get(0).getText());
-            this.currentFunction.arguments.add(s);
+            if (isPointerType(exprType.get(expr))) {
+                System.err.println("Cannot print pointer types. Error in line: " + ctx.start.getLine());
+                this.semanticErrors++;
+            }
         }
     }
 
 
-    //    public void exitArg(alg.ArgContext ctx)
-//    {
+//    public void exitArg(alg.ArgContext ctx) {
 //
 //        for (alg.Simple_declarationContext terminalNode : ctx.simple_declaration()) {
-//           Symbol s = this.currentScope.resolve(terminalNode.getText());
-//           System.out.println(s.type);
-////            Symbol.PType type = exprType.get(terminalNode);
-////            terminalNode.type();
-////            Symbol s = new Symbol(type.toString(), terminalNode.getText());
-////            this.currentFunction.arguments.add(s);
+//            Symbol s = this.currentScope.resolve(terminalNode.INDENT().get(0).getText());
+//
+//            this.currentFunction.arguments.add(s);
 //        }
 //    }
+
 
 
 }

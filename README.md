@@ -7,10 +7,10 @@
 - ANTLR 
 - Follow instructions in the [document](https://docs.google.com/document/d/1gQ2lsidvN2cDUUsHEkT05L-wGbX5mROB7d70Aaj3R64/edit?usp=sharing)
 
-### Lexer
+### Lexer (Lexical Analysis)
 First part
 
-### Grammar and Error 
+### Grammar and Error (Sintax Analysis)
 Second part of the work 
 - Errors
 1. There's an error when ";" is missing
@@ -24,5 +24,7 @@ We commented two ways of remove left recursion in our grammar in the expressions
 - Left factored
 We have everything left factored
 
+### Semantic Analysis
+Capturing semantic errors and showing in console using **Listener paradigm**
 
 
