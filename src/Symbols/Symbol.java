@@ -18,7 +18,6 @@ public class Symbol {
         POINTER_VOID,
         VOID,
         ERR,
-
         NULL,
 
     }

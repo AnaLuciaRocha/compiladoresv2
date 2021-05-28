@@ -1,7 +1,6 @@
 package com.company;
 
 import alg.TypeChecker;
-
 import alg.alg;
 import alg.algLexer;
 import org.antlr.v4.runtime.CharStreams;
@@ -26,6 +25,7 @@ public class Main {
             // create listener then feed to walker
             System.out.println("Type checking...");
             TypeChecker listener = new TypeChecker();
+
             walker.walk(listener, tree);
 
             //TODO: exercício 2. O exercício 2 é feito fácilmente com 2 listeners. Temos de partir o TypeChecker em 2.
@@ -38,17 +38,14 @@ public class Main {
             // por exemplo as tabelas de símbolos. Isto quer dizer que a tabela de símbolos (scopes) deixa de poder ser uma
             // variável local do listener, e tem que passar a ser um atributo/propriedade da árvore.
 
-            if(listener.semanticErrors > 0)
-            {
+            if (listener.semanticErrors > 0) {
                 System.out.println(listener.semanticErrors + " semantic errors found. Compilation process halted.");
                 System.exit(1);
             }
 
             System.out.println("No semantic errors found");
 
-        }
-        catch(IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
