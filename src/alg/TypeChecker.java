@@ -583,11 +583,13 @@ public class TypeChecker extends algBaseListener {
 
         for (alg.Instructions_cycleContext instruction : ctx.instructions_cycle())
         {
-            if(leaveRestarUsed)
+
+            if(leaveRestarUsed && instruction.expression() == null)
             {
                 System.err.println("Leave and Restart should be the last instruction inside the cycle. Error in line: " + instruction.start.getLine());
                 exprType.put(ctx, Symbol.PType.ERR);
                 this.semanticErrors++;
+                return;
             }
 
 
@@ -599,9 +601,7 @@ public class TypeChecker extends algBaseListener {
                 if(hasRestart || hasLeave) leaveRestarUsed = true;
             }
 
-
         }
-
     }
 
 
