@@ -18,7 +18,9 @@ public class Symbol {
         POINTER_VOID,
         VOID,
         ERR,
+
         NULL,
+
     }
 
     public PType type;
@@ -32,6 +34,7 @@ public class Symbol {
         this.name = name;
     }
 
+
     /**
      * Compara TODO
      */
@@ -41,15 +44,33 @@ public class Symbol {
         return result;
     }
 
+
+
+
     public String toString()
     {
         return name + ":" + this.type;
     }
 
+
+    /**
+     *
+     * @return
+     */
+
+  
     public boolean isPointerType()
     {
         return this.type.toString().contains("POINTER");
     }
+
+
+
+    /**
+     * Check if a Symbol is convertible to other Symbol
+     * @param t2
+     * @return boolean
+     */
 
     public boolean isConvertible(Symbol.PType t2)
     {
