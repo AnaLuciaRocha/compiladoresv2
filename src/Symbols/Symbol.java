@@ -19,6 +19,8 @@ public class Symbol {
         VOID,
         ERR,
 
+        NULL,
+
     }
 
     public PType type;
@@ -50,14 +52,18 @@ public class Symbol {
         return name + ":" + this.type;
     }
 
+
     /**
      *
      * @return
      */
+
+  
     public boolean isPointerType()
     {
         return this.type.toString().contains("POINTER");
     }
+
 
 
     /**
@@ -65,10 +71,12 @@ public class Symbol {
      * @param t2
      * @return boolean
      */
+
     public boolean isConvertible(Symbol.PType t2)
     {
         Symbol.PType t = this.type;
         boolean result;
+
         if(t == t2)
             result = true;
         else if(t == PType.INT && t2 == PType.FLOAT)

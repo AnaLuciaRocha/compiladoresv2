@@ -76,7 +76,7 @@ arg: simple_declaration (COMMA simple_declaration)*;
 body: prologo? block epilogo?;
 prologo : AT block ;
 epilogo: block MUCH_BIGGER_THAN;
-block : L_CURVE_BRACKET (variable_declation SEMI_COLON)*  instructions+ ( R_CURVE_BRACKET | {notifyErrorListeners("Missing '}'");});
+block : L_CURVE_BRACKET (variable_declation SEMI_COLON)*  (instructions+)? ( R_CURVE_BRACKET | {notifyErrorListeners("Missing '}'");});
 
 
 
@@ -91,6 +91,17 @@ block : L_CURVE_BRACKET (variable_declation SEMI_COLON)*  instructions+ ( R_CURV
 //             | cycle
 //             | sub_block ;
 
+instructions_cycle : (expression
+             | instruction_control_cycle
+             | atribuition )SEMI_COLON
+             | instruction_conditional
+             | cycle
+             | sub_block ;
+
+
+//3.2 Control instruction
+instruction_control: RETURN (expression | );
+
 instructions : (expression
              | instruction_control
              | atribuition )SEMI_COLON
@@ -100,7 +111,7 @@ instructions : (expression
 
 
 //3.2 Control instruction
-instruction_control: LEAVE
+instruction_control_cycle: LEAVE
                     | RESTART
                     | RETURN (expression | );
 
@@ -112,7 +123,7 @@ atribuition : (INDENT | index_pointer) EQUAL expression  ;
 instruction_conditional : IF expression THEN instructions (ELSE instructions)?  ;
 
 //3.5 ciclo
-cycle: WHILE expression DO instructions (FINALLY instructions|) ;
+cycle: WHILE expression DO instructions_cycle (FINALLY instructions_cycle|) ;
 
 //3.6 subbloco organiza bloco de instrucoes, nao permite declaracao de variaveis
 sub_block: L_CURVE_BRACKET instructions* R_CURVE_BRACKET;

@@ -1,18 +1,19 @@
+float l(float bola)
+@
+{
 
-
-<float> z;
-float y = z[1];
-int x;
-
-
-int alg(int x, <string> s) {
-    int w;
-    x=2;
-    x == w;
-    x == y;
-    ?x;
-    ?y;
-    ?z;
-    LEAVE;
 }
+{
 
+    while true do leave; finally (3+3);
+    return 3.3;
+}
+{
+
+}>>
+
+
+int alg(int x, <string> s)
+{
+return 0;
+}

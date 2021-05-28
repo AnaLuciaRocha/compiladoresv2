@@ -432,15 +432,15 @@ public interface algListener extends ParseTreeListener {
 	 */
 	void exitBlock(alg.BlockContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link alg#instructions}.
+	 * Enter a parse tree produced by {@link alg#instructions_cycle}.
 	 * @param ctx the parse tree
 	 */
-	void enterInstructions(alg.InstructionsContext ctx);
+	void enterInstructions_cycle(alg.Instructions_cycleContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link alg#instructions}.
+	 * Exit a parse tree produced by {@link alg#instructions_cycle}.
 	 * @param ctx the parse tree
 	 */
-	void exitInstructions(alg.InstructionsContext ctx);
+	void exitInstructions_cycle(alg.Instructions_cycleContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link alg#instruction_control}.
 	 * @param ctx the parse tree
@@ -451,6 +451,26 @@ public interface algListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitInstruction_control(alg.Instruction_controlContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link alg#instructions}.
+	 * @param ctx the parse tree
+	 */
+	void enterInstructions(alg.InstructionsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link alg#instructions}.
+	 * @param ctx the parse tree
+	 */
+	void exitInstructions(alg.InstructionsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link alg#instruction_control_cycle}.
+	 * @param ctx the parse tree
+	 */
+	void enterInstruction_control_cycle(alg.Instruction_control_cycleContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link alg#instruction_control_cycle}.
+	 * @param ctx the parse tree
+	 */
+	void exitInstruction_control_cycle(alg.Instruction_control_cycleContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link alg#atribuition}.
 	 * @param ctx the parse tree
