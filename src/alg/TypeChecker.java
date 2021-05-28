@@ -281,7 +281,8 @@ public class TypeChecker extends algBaseListener {
 
         if (ctx.INT(1) == null || ctx.STRING() == null) {
             exprType.put(ctx, Symbol.PType.ERR);
-            System.err.println("Wrong arguments were passed to the main function");
+            System.err.println("Wrong arguments were passed to the main function. Error in Line:" + ctx.start.getLine());
+            this.semanticErrors++;
             return;
         }
         Symbol s1 = new Symbol(ctx.INT(1).toString(), ctx.INDENT(0).getText());
@@ -606,6 +607,8 @@ public class TypeChecker extends algBaseListener {
             Symbol temp = new Symbol(arr2.get(i).toString(), "temp");
             if (!temp.isConvertible(arr1.get(i))) {
                 System.err.println("Expecting type " + arr1.get(i).toString() + " but " + arr2.get(i).toString() + " was given. Error in line: " + ctx.start.getLine());
+                this.semanticErrors++;
+                return;
             }
         }
     }
@@ -633,7 +636,7 @@ public class TypeChecker extends algBaseListener {
                 hasReturn = true;
                 Symbol.PType type_expression = exprType.get(instruction.instruction_control().expression());
                 if (type_expression == null || !new Symbol(type_expression.toString(), "temp").isConvertible(this.currentFunction.type)) {
-                    System.err.println("Function " + this.currentFunction.name + " expects to return type: " + this.currentFunction.type);
+                    System.err.println("Function " + this.currentFunction.name + " expects to return type: " + this.currentFunction.type + "Error in line: " + ctx.start.getLine());
                     exprType.put(ctx, Symbol.PType.ERR);
                     this.semanticErrors++;
                 }
@@ -643,7 +646,8 @@ public class TypeChecker extends algBaseListener {
 
         //If return is not optional and there was no return it is an error.
         if (!hasReturn && !isvoid) {
-            System.err.println("Function " + this.currentFunction.name + " is expecting a return");
+            System.err.println("Function " + this.currentFunction.name + " is expecting a return. Error in line: " + ctx.start.getLine());
+            this.semanticErrors++;
         }
     }
 
@@ -700,8 +704,10 @@ public class TypeChecker extends algBaseListener {
     public void exitWriteFunction(alg.WriteFunctionContext ctx) {
         List<alg.ExpressionContext> expressions = ctx.expression_list().expression();
         for (alg.ExpressionContext expr : expressions) {
-            if (isPointerType(exprType.get(expr)))
-                System.err.println("Cannot print pointer types");
+            if (isPointerType(exprType.get(expr))) {
+                System.err.println("Cannot print pointer types. Error in line: " + ctx.start.getLine());
+                this.semanticErrors++;
+            }
         }
     }
 
