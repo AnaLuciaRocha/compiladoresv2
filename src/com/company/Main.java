@@ -8,6 +8,7 @@ import alg.algLexer;
 import alg.alg;
 import alg.TypeChecker;
 import alg.CodeGen;
+import alg.FunctionDeclarationChecker;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -42,6 +43,11 @@ public class Main {
 
             // create a standard ANTLR parse tree walker
             ParseTreeWalker walker = new ParseTreeWalker();
+            //1st listener
+            FunctionDeclarationChecker functionListener = new FunctionDeclarationChecker();
+            walker.walk(functionListener, tree);
+            //2nd listener
+            TypeChecker listener = new TypeChecker(functionListener.functionList);
             // create listener then feed to walker
             TypeChecker listener = new TypeChecker();
             System.out.println("Type checking...");

@@ -3,6 +3,7 @@ package alg;
 import Symbols.FunctionSymbol;
 
 import Symbols.Symbol;
+import Symbols.Type;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +50,7 @@ public class FunctionDeclarationChecker extends algBaseListener {
 
     public void exitArg(alg.ArgContext ctx) {
         for (int i = 0; i < ctx.simple_declaration().size(); i ++) {
-            Symbol s = new Symbol( ctx.simple_declaration().get(i).type().getText(), ctx.simple_declaration().get(i).INDENT().toString());
+            Symbol s = new Symbol( new Type(ctx.simple_declaration().get(i).type().getText()), ctx.simple_declaration().get(i).INDENT().toString());
             if(s != null)
                 this.currentFunction.arguments.add(s);
         }
