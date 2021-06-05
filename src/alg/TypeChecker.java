@@ -371,7 +371,7 @@ public class TypeChecker extends algBaseListener {
             return;
         }
         if (expr1.isPointer() && !expr1.isEmptyPointerType() && expr2.getPrimitiveType() == Type.PType.INT) {
-            exprType.put(ctx, expr1);
+            exprType.put(ctx, new Type(false, expr1.getPrimitiveType()));
         } else {
             exprType.put(ctx, new Type(Type.PType.ERROR));
             System.err.println("Expected a boolean type in line " + ctx.start.getLine());
@@ -410,7 +410,7 @@ public class TypeChecker extends algBaseListener {
         }
         if (ctx.QUESTION() != null) { //Pointer Extraction
             if ((ctx.expression().start.getType() == algLexer.INDENT || (ctx.expression() instanceof alg.IndexArrContext))
-                    && !type.isEmptyPointerType() && type.isPrimitiveType()) {
+                    && !type.isEmptyPointerType() && type.isPrimitiveType() && !type.isPointer()) {
                 exprType.put(ctx, new Type(true,type.getPrimitiveType()));
 //                exprType.put(ctx, primitiveToPointertype(type));
             } else {
