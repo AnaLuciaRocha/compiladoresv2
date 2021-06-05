@@ -76,7 +76,8 @@ arg: simple_declaration (COMMA simple_declaration)*;
 body: prologo? block epilogo?;
 prologo : AT block ;
 epilogo: block MUCH_BIGGER_THAN;
-block : L_CURVE_BRACKET (variable_declation SEMI_COLON)*  (instructions+)? ( R_CURVE_BRACKET | {notifyErrorListeners("Missing '}'");});
+//block : L_CURVE_BRACKET (variable_declation SEMI_COLON)*  (instructions+)? ( R_CURVE_BRACKET | {notifyErrorListeners("Missing '}'");});
+block : L_CURVE_BRACKET ((variable_declation SEMI_COLON)*  (instructions+) )+ ( R_CURVE_BRACKET | {notifyErrorListeners("Missing '}'");});
 
 
 

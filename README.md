@@ -27,4 +27,13 @@ We have everything left factored
 ### Semantic Analysis
 Capturing semantic errors and showing in console using **Listener paradigm**
 
+### Code generating
+Now we used **Visitor paradigm**
+
+### NOTES
+There were some improvements made on the last work, that involved fix some bugs that we had in previous versions, such:
+1. "Declaracao com inicializacao"
+- We forgot one detail in the grammar part, regarding the body of a function. Now our parse tree is working with more than one instruction
+- We also forgot to check types in semantic analysis, now it's fixed.
+
 
