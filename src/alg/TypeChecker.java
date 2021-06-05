@@ -226,8 +226,44 @@ public class TypeChecker extends algBaseListener {
 
 
     //Saida de uma initialization_declaration, define um symbol para a dada inicializacao
+//    initialization_declaration: type INDENT EQUAL ( expression |  L_BRACKET expression R_BRACKET);
+
+    //    atribuition : (INDENT | index_pointer) EQUAL expression  ;
+
     public void exitInitialization_declaration(alg.Initialization_declarationContext ctx) {
         defineSymbol(ctx, new Symbol(new Type(ctx.type().getText()), ctx.INDENT().getText()));
+
+        String variableName = ctx.INDENT().getText();
+        Symbol s = this.currentScope.resolve(variableName);
+        Type expresssion_type = exprType.get(ctx.expression());
+        if (s == null) {
+            System.err.println("Undefined variable " + variableName + " in line " + ctx.INDENT().getSymbol().getLine());
+            this.semanticErrors++;
+            exprType.put(ctx, new Type (Type.PType.ERROR));
+            return;
+        }
+        // tipo iden = [expr]
+        if(ctx.L_BRACKET() != null){
+            if ( s.type.getPrimitiveType() == Type.PType.VOID || expresssion_type.getPrimitiveType() != Type.PType.INT) {
+                System.err.println("Cannot assign  " + variableName + " as variable in line " + ctx.INDENT().getSymbol().getLine()
+                + " wrong length for array type ");
+                this.semanticErrors++;
+                exprType.put(ctx, new Type (Type.PType.ERROR));
+                return;
+            }
+            exprType.put(ctx, s.type);
+
+        }
+        //tipo ident = expr
+        else {
+            if ( expresssion_type.getPrimitiveType() == Type.PType.VOID || !Type.isConvertibleTo( expresssion_type, s.type)) {
+                System.err.println("Cannot assign  " + variableName + " as variable in line " + ctx.INDENT().getSymbol().getLine());
+                this.semanticErrors++;
+                exprType.put(ctx, new Type (Type.PType.ERROR));
+                return;
+            }
+            exprType.put(ctx, s.type);
+        }
 
     }
 
@@ -371,7 +407,7 @@ public class TypeChecker extends algBaseListener {
             return;
         }
         if (expr1.isPointer() && !expr1.isEmptyPointerType() && expr2.getPrimitiveType() == Type.PType.INT) {
-            exprType.put(ctx, new Type(false, expr1.getPrimitiveType()));
+            exprType.put(ctx, expr1.extractValueType());
         } else {
             exprType.put(ctx, new Type(Type.PType.ERROR));
             System.err.println("Expected a boolean type in line " + ctx.start.getLine());
@@ -411,7 +447,7 @@ public class TypeChecker extends algBaseListener {
         if (ctx.QUESTION() != null) { //Pointer Extraction
             if ((ctx.expression().start.getType() == algLexer.INDENT || (ctx.expression() instanceof alg.IndexArrContext))
                     && !type.isEmptyPointerType() && type.isPrimitiveType() && !type.isPointer()) {
-                exprType.put(ctx, new Type(true,type.getPrimitiveType()));
+                exprType.put(ctx, type.extractPointerType());
 //                exprType.put(ctx, primitiveToPointertype(type));
             } else {
                 System.err.println("Mismatched type for pointer extraction in line: " + ctx.start.getLine());
@@ -713,7 +749,7 @@ public class TypeChecker extends algBaseListener {
             return;
         }
 //        if (expresssion_type.getPrimitiveType() == Type.PType.VOID || !s.isConvertible(expresssion_type)) {
-        if (expresssion_type.getPrimitiveType() == Type.PType.VOID || ! Type.isConvertibleTo(s.type, expresssion_type)) {
+        if (expresssion_type.getPrimitiveType() == Type.PType.VOID || !Type.isConvertibleTo(s.type, expresssion_type)) {
             System.err.println("Cannot assign  " + variableName + " as variable in line " + ctx.INDENT().getSymbol().getLine());
             this.semanticErrors++;
             exprType.put(ctx, new Type (Type.PType.ERROR));

@@ -46,24 +46,7 @@ public class Type {
         return null;
     }
 
-//    private String setSymbolType(String symbol) {
-//        String result = symbol;
-//        if (symbol.equals("<string>")) {
-//            result = "POINTER_STRING";
-//        } else if (symbol.equals("<float>")) {
-//            result = "POINTER_FLOAT";
-//        } else if (symbol.equals("<int>")) {
-//            result = "POINTER_INT";
-//        } else if (symbol.equals("<bool>")) {
-//            result = "POINTER_BOOL";
-//        } else if (symbol.equals("<void>")) {
-//            result = "POINTER_VOID";
-//        } else if (symbol.equals("null")) {
-//            result = "POINTER_VOID";
-//        }
-//
-//        return result;
-//    }
+
     public Type(String type) {
         if(type.contains("null"))
             new Type(true, PType.VOID);
