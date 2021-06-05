@@ -7,7 +7,7 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import alg.algLexer;
 import alg.alg;
 import alg.TypeChecker;
-//import alg.CodeGen;
+import alg.CodeGen;
 import alg.FunctionDeclarationChecker;
 
 import java.io.BufferedWriter;
@@ -63,21 +63,21 @@ public class Main {
             System.out.println("Generating TAC code");
 
             //give the scopes created by the typeChecker to the codeGenerator
-//            CodeGen codeGen = new CodeGen(listener.scopes);
-//            codeGen.visit(tree);
-//
-//            BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
-//            for(String s : codeGen.code)
-//            {
-//                if(!s.endsWith(":"))
-//                {
-//                    writer.write("\t");
-//                }
-//                writer.write(s);
-//                writer.newLine();
-//            }
-//            writer.flush();
-//            writer.close();
+            CodeGen codeGen = new CodeGen(listener.scopes);
+            codeGen.visit(tree);
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
+            for(String s : codeGen.code)
+            {
+                if(!s.endsWith(":"))
+                {
+                    writer.write("\t");
+                }
+                writer.write(s);
+                writer.newLine();
+            }
+            writer.flush();
+            writer.close();
 
         }
         catch(IOException e)

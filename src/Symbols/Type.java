@@ -11,8 +11,6 @@ public class Type {
         STRING,
         BOOLEAN,
         ERROR;
-
-
     }
 
     private boolean isPointer;
