@@ -171,7 +171,7 @@ public class CodeGen extends algBaseVisitor<Symbol> {
 
         // _t1 = a[0]
         Symbol t = this.temp(ctx, t1.type);
-        emit(t.name + " = " + t1.name + "[ " + _t0.name + " ]");
+        emit(t.name + " = " + t1.name + " + " + _t0.name );
         return t;
     }
 
@@ -206,7 +206,7 @@ public class CodeGen extends algBaseVisitor<Symbol> {
             // x = ?y[4+x]
             Symbol s1 = visit(ctx.expression());
             Symbol t = this.temp(ctx, s1.type);
-
+            if(!s1.type.isPointer())
                 emit(t.name + " = " + "&" + " " + s1.name);
                 return t;
 
