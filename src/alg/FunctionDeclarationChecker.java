@@ -28,7 +28,7 @@ public class FunctionDeclarationChecker extends algBaseListener {
         String functionName = null;
         if (ctx.INDENT() != null) {
             functionName = ctx.INDENT().getText();
-            String type = ctx.function_type().start.getText();
+            Type type = new Type(ctx.function_type().start.getText());
             f = new FunctionSymbol(type, functionName);
 
             if (type == null) {
@@ -38,7 +38,8 @@ public class FunctionDeclarationChecker extends algBaseListener {
 
         if (ctx.INDENT() == null) {
             functionName = ctx.main_function_declaration().ALG().getText();
-            String type = ctx.main_function_declaration().INT(0).getText();
+            Type type = new Type(ctx.main_function_declaration().INT(0).getText());
+//            String type = ctx.main_function_declaration().INT(0).getText();
             f = new FunctionSymbol(type, functionName);
         }
 

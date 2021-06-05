@@ -69,9 +69,15 @@ public class Type {
     public Type(String type) {
         if(type.contains("null"))
             new Type(true, PType.VOID);
-
-        this.isPointer = type.contains("<");
-        this.type = PType.valueOf(type.toUpperCase(Locale.ROOT));
+        if(type.contains("<")){
+            this.isPointer = true;
+            String pointer_type = type.substring(1,type.length()-1);
+            this.type = PType.valueOf(pointer_type.toUpperCase(Locale.ROOT));
+        }
+        else {
+            this.isPointer = type.contains("<");
+            this.type = PType.valueOf(type.toUpperCase(Locale.ROOT));
+        }
     }
 
     public Type(boolean isPointer, String type) {
