@@ -3,6 +3,7 @@ package alg;
 import Symbols.FunctionSymbol;
 
 import Symbols.Symbol;
+import Symbols.Type;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class FunctionDeclarationChecker extends algBaseListener {
         String functionName = null;
         if (ctx.INDENT() != null) {
             functionName = ctx.INDENT().getText();
-            String type = ctx.function_type().start.getText();
+            Type type = new Type(ctx.function_type().start.getText());
             f = new FunctionSymbol(type, functionName);
 
             if (type == null) {
@@ -37,7 +38,8 @@ public class FunctionDeclarationChecker extends algBaseListener {
 
         if (ctx.INDENT() == null) {
             functionName = ctx.main_function_declaration().ALG().getText();
-            String type = ctx.main_function_declaration().INT(0).getText();
+            Type type = new Type(ctx.main_function_declaration().INT(0).getText());
+//            String type = ctx.main_function_declaration().INT(0).getText();
             f = new FunctionSymbol(type, functionName);
         }
 
@@ -49,7 +51,7 @@ public class FunctionDeclarationChecker extends algBaseListener {
 
     public void exitArg(alg.ArgContext ctx) {
         for (int i = 0; i < ctx.simple_declaration().size(); i ++) {
-            Symbol s = new Symbol( ctx.simple_declaration().get(i).type().getText(), ctx.simple_declaration().get(i).INDENT().toString());
+            Symbol s = new Symbol( new Type(ctx.simple_declaration().get(i).type().getText()), ctx.simple_declaration().get(i).INDENT().toString());
             if(s != null)
                 this.currentFunction.arguments.add(s);
         }
